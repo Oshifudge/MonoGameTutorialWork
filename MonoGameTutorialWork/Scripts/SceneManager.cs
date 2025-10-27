@@ -92,5 +92,6 @@ namespace MonoGameTutorialWork.Scripts
         {
             textToShow = inputText;
         }
+
     }
 }
