@@ -63,7 +63,7 @@ namespace MonoGameTutorialWork.Scripts
             {
                 case e_gameStates.MENU:
                     menu.Draw(graphicsDevice);
-                    spriteBatch.DrawString(MainFont, textToShow, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Aqua);
+                    spriteBatch.DrawString(MainFont, textToShow, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black);
                     break;
                 case e_gameStates.GAME:
                     play.Draw(graphicsDevice, spriteBatch);
