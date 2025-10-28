@@ -10,47 +10,55 @@ namespace MonoGameTutorialWork.Scripts
         protected Vector2 initialPos;
         protected Vector2 currentPos;
         protected Texture2D Sprite;
-        protected int currentLevel;
-        protected Rectangle spriteDimensions;
-        protected Levels levelScript;
 
-        public Creature(Vector2 position, int currentLevel, Rectangle spriteDimensions)
+        protected Rectangle spriteDimensions;
+        protected Levels currentLevel;
+        protected float moveSpeed = 1;
+
+        public Creature(Vector2 position, Levels current, Rectangle spriteRectangle)
         {
             currentPos = position;
             initialPos = currentPos;
-            this.currentLevel = currentLevel;
-            this.spriteDimensions = spriteDimensions;
+            currentLevel = current;
+            spriteDimensions = spriteRectangle;
         }
 
         public virtual void Up()
         {
-            currentPos.Y += 1.0f;
-            GetCurrentPos();
-            levelScript.IsWall(currentPos.X, currentPos.Y);
+            if (!currentLevel.IsWall((int)currentPos.X,(int)currentPos.Y) && 
+                !currentLevel.IsWall((int)currentPos.X+spriteDimensions.Width-1,(int)currentPos.Y))
+            {
+                currentPos.Y -= moveSpeed;
+            }
+            
+            //levelScript.IsWall(currentPos.X, currentPos.Y);
         }
 
         public virtual void Down()
         {
-            currentPos.Y -= 1.0f;
-            GetCurrentPos();
-            levelScript.IsWall(currentPos.X, currentPos.Y);
-
+            if (!currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + spriteDimensions.Height - 1) &&
+                !currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1))
+            {
+                currentPos.Y += moveSpeed;
+            }
         }
 
         public virtual void Left()
         {
-            currentPos.X -= 1.0f;
-            GetCurrentPos();
-            levelScript.IsWall(currentPos.X, currentPos.Y);
-
+            if (!currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y) &&
+                !currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + spriteDimensions.Height - 1))
+            {
+                currentPos.X -= moveSpeed;
+            }
         }
 
         public virtual void Right()
         {
-            currentPos.X += 1.0f;
-            GetCurrentPos();
-            levelScript.IsWall(currentPos.X, currentPos.Y);
-
+            if (!currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y) &&
+                !currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1))
+            {
+                currentPos.X += moveSpeed;
+            }
         }
 
         public Vector2 GetCurrentPos()

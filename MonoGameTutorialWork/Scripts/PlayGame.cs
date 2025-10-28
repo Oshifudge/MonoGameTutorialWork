@@ -15,9 +15,10 @@ namespace MonoGameTutorialWork.Scripts
 
         public PlayGame()
         {
-            player = new Player(3, new Vector2(350, 0));
-            enemy = new Enemy(new Vector2(10, 0));
             level = new Levels();
+            player = new Player(3, new Vector2(350, 100), level, new Rectangle(0, 0, 52, 72));
+            enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(0, 0, 52, 72));
+            
         }
 
         public e_gameStates Update()

@@ -10,8 +10,9 @@ namespace MonoGameTutorialWork.Scripts
         private int initialLives;
         private int score;
 
-        public Player(int lives, Vector2 position, int currentLevel, Rectangle rectangle) : base(position, currentLevel, rectangle)
+        public Player(int lives, Vector2 position, Levels currentLevel, Rectangle rectangle) : base(position, currentLevel, rectangle)
         {
+            moveSpeed = 1.5f;
             currentLives = lives;
             initialLives = currentLives;
             score = 0;
@@ -31,28 +32,28 @@ namespace MonoGameTutorialWork.Scripts
             currentLives = initialLives;
         }
 
-        public override void Up()
+        new void Up()
         {
-            currentPos.Y -= 1.5f;
-            levelScript.IsWall(currentPos.X, currentPos.Y);
+            
+            //levelScript.IsWall(currentPos.X, currentPos.Y);
 
         }
-        public override void Down()
+        new void Down()
         {
-            currentPos.Y += 1.5f;
-            levelScript.IsWall(currentPos.X, currentPos.Y);
+            
+            //levelScript.IsWall(currentPos.X, currentPos.Y);
 
         }
-        public override void Left()
+        new void Left()
         {
-            currentPos.X -= 1.5f;
-            levelScript.IsWall(currentPos.X, currentPos.Y);
+            
+            //levelScript.IsWall(currentPos.X, currentPos.Y);
 
         }
-        public override void Right()
+        new void Right()
         {
-            currentPos.X += 1.5f;
-            levelScript.IsWall(currentPos.X, currentPos.Y);
+            
+            //levelScript.IsWall(currentPos.X, currentPos.Y);
 
         }
     }
