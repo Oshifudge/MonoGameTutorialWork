@@ -73,5 +73,11 @@ namespace MonoGameTutorialWork.Scripts
                 }
             }
         }
+
+        public bool IsWall()
+        {
+
+            return true;
+        }
     }
 }
