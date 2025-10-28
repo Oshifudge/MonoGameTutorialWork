@@ -74,10 +74,13 @@ namespace MonoGameTutorialWork.Scripts
             }
         }
 
-        public bool IsWall()
+        public bool IsWall(float x, float y)
         {
-
-            return true;
+            if (levelContents[(int)y/wallTexture.Height][(int)x/wallTexture.Width] == 'W')
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

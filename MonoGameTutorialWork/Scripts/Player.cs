@@ -10,7 +10,7 @@ namespace MonoGameTutorialWork.Scripts
         private int initialLives;
         private int score;
 
-        public Player(int lives, Vector2 position) : base(position)
+        public Player(int lives, Vector2 position, int currentLevel, Rectangle rectangle) : base(position, currentLevel, rectangle)
         {
             currentLives = lives;
             initialLives = currentLives;
@@ -34,18 +34,26 @@ namespace MonoGameTutorialWork.Scripts
         public override void Up()
         {
             currentPos.Y -= 1.5f;
+            levelScript.IsWall(currentPos.X, currentPos.Y);
+
         }
         public override void Down()
         {
             currentPos.Y += 1.5f;
+            levelScript.IsWall(currentPos.X, currentPos.Y);
+
         }
         public override void Left()
         {
             currentPos.X -= 1.5f;
+            levelScript.IsWall(currentPos.X, currentPos.Y);
+
         }
         public override void Right()
         {
             currentPos.X += 1.5f;
+            levelScript.IsWall(currentPos.X, currentPos.Y);
+
         }
     }
 }

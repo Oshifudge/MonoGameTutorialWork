@@ -7,7 +7,7 @@ namespace MonoGameTutorialWork.Scripts
 {
     internal class Enemy : Creature
     {
-        public Enemy(Vector2 position) : base(position)
+        public Enemy(int lives, Vector2 position, int currentLevel, Rectangle rectangle) : base(position, currentLevel, rectangle)
         {
 
         }
