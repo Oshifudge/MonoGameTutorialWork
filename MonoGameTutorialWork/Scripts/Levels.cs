@@ -11,6 +11,7 @@ namespace MonoGameTutorialWork.Scripts
     internal class Levels
     {
         private Texture2D wallTexture;
+        private Texture2D platformTexture;
         private Vector2 textureWH;
         private string[] levelContents;
         public int currentLevel;
@@ -21,9 +22,10 @@ namespace MonoGameTutorialWork.Scripts
             BuildNewLevel();
         }
 
-        public void LoadContent(ContentManager cM, string levelFileName)
+        public void LoadContent(ContentManager cM, string levelFileName, string platformFileName)
         {
             wallTexture = cM.Load<Texture2D>(levelFileName);
+            platformTexture = cM.Load<Texture2D>(platformFileName);
             textureWH = new Vector2(wallTexture.Width, wallTexture.Height);
         }
 
@@ -70,6 +72,11 @@ namespace MonoGameTutorialWork.Scripts
                     {
                         spriteBatch.Draw(wallTexture, new Vector2(wallTexture.Width * col, wallTexture.Height * row), Color.White);
                     }
+
+                    if (levelContents[row][col] == 'P')
+                    {
+                        spriteBatch.Draw(platformTexture, new Vector2(platformTexture.Width * col, platformTexture.Height * row), Color.White);
+                    }
                 }
             }
         }
@@ -80,6 +87,22 @@ namespace MonoGameTutorialWork.Scripts
             {
                 return true;
             }
+            return false;
+        }
+
+        public bool IsPlatform(float x, float y)
+        {
+            if (levelContents[(int)y / platformTexture.Height][(int)x / platformTexture.Width] == 'W')
+                return true;
+            return false;
+        }
+
+        public bool IsInSameRow(int int1, int int2)
+        {
+            int first = int1 / (int)wallTexture.Height;
+            int second = int2 / (int)wallTexture.Height;
+            if(first == second)
+                return true;
             return false;
         }
     }

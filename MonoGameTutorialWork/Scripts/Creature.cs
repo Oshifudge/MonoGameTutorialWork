@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Windows.Forms;
+using System.Diagnostics.Eventing.Reader;
 
 namespace MonoGameTutorialWork.Scripts
 {
@@ -16,31 +17,47 @@ namespace MonoGameTutorialWork.Scripts
         protected Levels currentLevel;
         protected float moveSpeed = 1;
 
+        protected bool isJumping;
+        protected int maxHeight;
+        protected int currentHeight;
+
         public Creature(Vector2 position, Levels current, Rectangle spriteRectangle)
         {
             currentPos = position;
             initialPos = currentPos;
             currentLevel = current;
             spriteDimensions = spriteRectangle;
+            isJumping = false;
+            currentHeight = 0;
+            maxHeight = 150;
         }
 
-        public virtual void Up()
+        public virtual void Up(int inputSpeed)
         {
-            if (!currentLevel.IsWall((int)currentPos.X,(int)currentPos.Y) && 
-                !currentLevel.IsWall((int)currentPos.X+spriteDimensions.Width-1,(int)currentPos.Y))
+            if (!currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y) &&
+                !currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
             {
-                currentPos.Y -= moveSpeed;
+                currentPos.Y -= inputSpeed;
+            }
+            else
+            {
+                if (isJumping)
+                    isJumping = false;
             }
             
             //levelScript.IsWall(currentPos.X, currentPos.Y);
         }
 
-        public virtual void Down()
+        public virtual void Down(int inputSpeed)
         {
-            if (!currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + spriteDimensions.Height - 1) &&
-                !currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1))
+            bool onFloor;
+            bool onPlatform;
+            bool sameRow;
+
+            if (currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + spriteDimensions.Height - 1) ^
+                currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1))
             {
-                currentPos.Y += moveSpeed;
+                currentPos.Y += inputSpeed;
             }
         }
 
@@ -59,6 +76,28 @@ namespace MonoGameTutorialWork.Scripts
                 !currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1))
             {
                 currentPos.X += moveSpeed;
+            }
+        }
+
+        public void SetIsJumping()
+        {
+
+        }
+
+        public void JumpOrFall(int inputSpeed)
+        {
+            if(isJumping)
+            {
+                Up();
+                currentHeight += inputSpeed;
+
+                if(currentHeight >= maxHeight)
+                    isJumping = false;
+            }
+            else
+            {
+                Down();
+                currentHeight -= inputSpeed;
             }
         }
 
