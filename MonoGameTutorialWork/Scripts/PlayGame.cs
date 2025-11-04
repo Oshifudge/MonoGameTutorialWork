@@ -47,7 +47,14 @@ namespace MonoGameTutorialWork.Scripts
 
             enemy.Chase(player);
 
-            if (enemy.Caught(player))
+            if (enemy.CollidesWith(player))
+            {
+                player.ReduceLives();
+                System.Console.WriteLine("Player Lives = " + player.GetLives());
+                player.ResetCurrentPos();
+                enemy.ResetCurrentPos();
+            }
+            if(player.CollidesWith(enemy))
             {
                 player.ReduceLives();
                 System.Console.WriteLine("Player Lives = " + player.GetLives());

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using System.Windows.Forms;
 
 namespace MonoGameTutorialWork.Scripts
 {
@@ -81,7 +82,20 @@ namespace MonoGameTutorialWork.Scripts
             spriteBatch.Draw(Sprite, currentPos, rect, Color.White);
         }
 
+        protected Vector2 getSpriteFrameDimensions()
+        {
+            return new Vector2(Sprite.Width, Sprite.Height);
+        }
 
-
+        public bool CollidesWith(Creature creature)
+        {
+            if (currentPos.X <= creature.currentPos.X + spriteDimensions.Width - 1 &&
+                currentPos.X + spriteDimensions.Width - 1 >= creature.currentPos.X &&
+                currentPos.Y <= creature.currentPos.Y + spriteDimensions.Height - 1 &&
+                currentPos.Y + spriteDimensions.Height - 1 >= creature.currentPos.Y)
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -32,13 +32,5 @@ namespace MonoGameTutorialWork.Scripts
             }
 
         }
-
-        public bool Caught(Player player)
-        {
-            if (currentPos == player.GetCurrentPos())
-                return true;
-            else
-                return false;
-        }
     }
 }
