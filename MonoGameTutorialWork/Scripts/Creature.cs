@@ -84,7 +84,7 @@ namespace MonoGameTutorialWork.Scripts
         {
             bool onFloor = currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height)) ||
                 currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
-            bool onPlatform = currentLevel.IsPlatform((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height - 1)) ||
+            bool onPlatform = currentLevel.IsPlatform((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height)) ||
                 currentLevel.IsPlatform((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
             bool sameRow = currentLevel.IsInSameRow((int)currentPos.Y + (spriteDimensions.Height - 1), (int)currentPos.Y + (spriteDimensions.Height - 1) + 1);
 

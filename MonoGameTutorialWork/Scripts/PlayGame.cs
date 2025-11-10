@@ -39,11 +39,11 @@ namespace MonoGameTutorialWork.Scripts
                     jumpIsPressed = true;
                     player.SetIsJumping();
                 }
+            }
 
-                if (Keyboard.GetState().IsKeyUp(Keys.W))
-                {
-                    jumpIsPressed = false;
-                }
+            if (Keyboard.GetState().IsKeyUp(Keys.W))
+            {
+                jumpIsPressed = false;
             }
             //if (Keyboard.GetState().IsKeyDown(Keys.S))
             //{
@@ -99,7 +99,7 @@ namespace MonoGameTutorialWork.Scripts
         {
             player.LoadContent(CM, "chara6");
             enemy.LoadContent(CM, "orc2");
-            level.LoadContent(CM, "Wall1");
+            level.LoadContent(CM, "Wall1", "hplat1");
             graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
             graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
             graphicsDeviceManager.ApplyChanges();

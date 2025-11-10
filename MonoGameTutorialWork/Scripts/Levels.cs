@@ -92,7 +92,7 @@ namespace MonoGameTutorialWork.Scripts
 
         public bool IsPlatform(float x, float y)
         {
-            if (levelContents[(int)y / platformTexture.Height][(int)x / platformTexture.Width] == 'W')
+            if (levelContents[(int)y / platformTexture.Height][(int)x / platformTexture.Width] == 'P')
                 return true;
             return false;
         }
