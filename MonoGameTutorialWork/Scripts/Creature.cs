@@ -50,12 +50,13 @@ namespace MonoGameTutorialWork.Scripts
 
         public virtual void Down(int inputSpeed)
         {
-            bool onFloor;
-            bool onPlatform;
-            bool sameRow;
+            bool onFloor = currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height - 1) + inputSpeed) ||
+                currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
+            bool onPlatform = currentLevel.IsPlatform((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height - 1) + inputSpeed) ||
+                currentLevel.IsPlatform((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
+            bool sameRow = currentLevel.IsInSameRow((int)currentPos.Y + (spriteDimensions.Height - 1), (int)currentPos.Y + (spriteDimensions.Height - 1) + inputSpeed);
 
-            if (currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + spriteDimensions.Height - 1) ^
-                currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1))
+            if  (!onFloor && !(onPlatform && !sameRow))
             {
                 currentPos.Y += inputSpeed;
             }
@@ -81,14 +82,24 @@ namespace MonoGameTutorialWork.Scripts
 
         public void SetIsJumping()
         {
+            bool onFloor = currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height)) ||
+                currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
+            bool onPlatform = currentLevel.IsPlatform((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height - 1)) ||
+                currentLevel.IsPlatform((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
+            bool sameRow = currentLevel.IsInSameRow((int)currentPos.Y + (spriteDimensions.Height - 1), (int)currentPos.Y + (spriteDimensions.Height - 1) + 1);
 
+            if(onFloor || (onPlatform & !sameRow))
+            {
+                isJumping = true;
+                currentHeight = 0;
+            }
         }
 
         public void JumpOrFall(int inputSpeed)
         {
             if(isJumping)
             {
-                Up();
+                Up(2);
                 currentHeight += inputSpeed;
 
                 if(currentHeight >= maxHeight)
@@ -96,7 +107,7 @@ namespace MonoGameTutorialWork.Scripts
             }
             else
             {
-                Down();
+                Down(2);
                 currentHeight -= inputSpeed;
             }
         }

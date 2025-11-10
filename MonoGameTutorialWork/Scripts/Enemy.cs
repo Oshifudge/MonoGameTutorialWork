@@ -16,11 +16,11 @@ namespace MonoGameTutorialWork.Scripts
         {
             if (currentPos.Y > player.GetCurrentPos().Y)
             {
-                Up();
+                Up(2);
             }
             if (currentPos.Y < player.GetCurrentPos().Y)
             {
-                Down();
+                Down(2);
             }
             if (currentPos.X > player.GetCurrentPos().X)
             {

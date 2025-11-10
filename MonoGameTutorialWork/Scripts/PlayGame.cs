@@ -12,12 +12,14 @@ namespace MonoGameTutorialWork.Scripts
         Enemy enemy;
         Player player;
         Levels level;
+        bool jumpIsPressed;
 
         public PlayGame()
         {
             level = new Levels();
             player = new Player(3, new Vector2(350, 100), level, new Rectangle(0, 0, 52, 72));
             enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(0, 0, 52, 72));
+            jumpIsPressed = false;
             
         }
 
@@ -28,14 +30,25 @@ namespace MonoGameTutorialWork.Scripts
                 return e_gameStates.MENU;
             }
 
+            player.JumpOrFall(2);
+
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                player.Up();
+                if (!jumpIsPressed)
+                {
+                    jumpIsPressed = true;
+                    player.SetIsJumping();
+                }
+
+                if (Keyboard.GetState().IsKeyUp(Keys.W))
+                {
+                    jumpIsPressed = false;
+                }
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                player.Down();
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.S))
+            //{
+            //    player.Down();
+            //}
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 player.Left();
