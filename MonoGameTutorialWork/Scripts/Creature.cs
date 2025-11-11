@@ -149,8 +149,14 @@ namespace MonoGameTutorialWork.Scripts
                     new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height);
                         break;
                 case animState.RIGHT:
-                    new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions)
-
+                    
+                        break;
+                case animState.LEFT:
+                    break;
+                case animState.UP:
+                    break;
+                case animState.DOWN:
+                    break;
                 default:
                     break;
 
