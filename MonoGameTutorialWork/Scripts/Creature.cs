@@ -21,6 +21,16 @@ namespace MonoGameTutorialWork.Scripts
         protected int maxHeight;
         protected int currentHeight;
 
+        enum animState
+        {
+            LEFT, RIGHT, UP, DOWN, IDLE
+        }
+
+        private int animFrameIndex;
+        private double currentFrameTime;
+        private double frameTimeLimit;
+        private animState currentAnimState;
+
         public Creature(Vector2 position, Levels current, Rectangle spriteRectangle)
         {
             currentPos = position;
@@ -30,6 +40,10 @@ namespace MonoGameTutorialWork.Scripts
             isJumping = false;
             currentHeight = 0;
             maxHeight = 150;
+            animFrameIndex = 0;
+            currentFrameTime = 0.0f;
+            frameTimeLimit = 0.4f;
+            currentAnimState = animState.IDLE;
         }
 
         public virtual void Up(int inputSpeed)
@@ -127,9 +141,22 @@ namespace MonoGameTutorialWork.Scripts
             Sprite = cm.Load<Texture2D>(name);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Rectangle rect)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite, currentPos, rect, Color.White);
+            switch(currentAnimState)
+            {
+                case animState.IDLE:
+                    new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height);
+                        break;
+                case animState.RIGHT:
+                    new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions)
+
+                default:
+                    break;
+
+            }
+            
+            //spriteBatch.Draw(Sprite, currentPos, rect, Color.White);
         }
 
         protected Vector2 getSpriteFrameDimensions()
@@ -146,6 +173,23 @@ namespace MonoGameTutorialWork.Scripts
                 return true;
             else
                 return false;
+        }
+
+        protected void SetAnimState(animState state)
+        {
+            currentAnimState = state;
+        }
+
+        private void SetCurrentFrame(double deltaTime)
+        {
+            currentFrameTime += deltaTime;
+            if (currentFrameTime > frameTimeLimit)
+            {
+                animFrameIndex++;
+                if(animFrameIndex > 3)
+                    animFrameIndex = 0;
+                currentFrameTime = 0.0f;
+            }
         }
     }
 }
