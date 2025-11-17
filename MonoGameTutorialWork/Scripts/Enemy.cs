@@ -17,18 +17,25 @@ namespace MonoGameTutorialWork.Scripts
             if (currentPos.Y > player.GetCurrentPos().Y)
             {
                 Up(2);
+                currentAnimState = animState.UP;
             }
             if (currentPos.Y < player.GetCurrentPos().Y)
             {
                 Down(2);
+                currentAnimState = animState.DOWN;
+
             }
             if (currentPos.X > player.GetCurrentPos().X)
             {
                 Left();
+                currentAnimState = animState.LEFT;
+
             }
             if (currentPos.X < player.GetCurrentPos().X)
             {
                 Right();
+                currentAnimState = animState.RIGHT;
+
             }
 
         }

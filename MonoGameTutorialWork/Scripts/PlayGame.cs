@@ -17,13 +17,13 @@ namespace MonoGameTutorialWork.Scripts
         public PlayGame()
         {
             level = new Levels();
-            player = new Player(3, new Vector2(350, 100), level, new Rectangle(0, 0, 52, 72));
-            enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(0, 0, 52, 72));
+            player = new Player(3, new Vector2(350, 100), level, new Rectangle(52*6, 72*4, 52, 72));
+            enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(52*3, 72*2, 52, 72));
             jumpIsPressed = false;
             
         }
 
-        public e_gameStates Update()
+        public e_gameStates Update(double Delta)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
@@ -45,20 +45,25 @@ namespace MonoGameTutorialWork.Scripts
             {
                 jumpIsPressed = false;
             }
-            //if (Keyboard.GetState().IsKeyDown(Keys.S))
-            //{
-            //    player.Down();
-            //}
+            
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
+                player.SetAnimState(Creature.animState.LEFT);
                 player.Left();
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
+                player.SetAnimState(Creature.animState.RIGHT);
                 player.Right();
             }
 
+            player.SetCurrentFrame(Delta);
+            if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D)
+            {
+                player.SetAnimState(Creature.animState.IDLE);
+            }
             enemy.Chase(player);
+            enemy.SetFrame(Delta);
 
             if (enemy.CollidesWith(player))
             {
@@ -90,8 +95,12 @@ namespace MonoGameTutorialWork.Scripts
         {
             graphicsDevice.Clear(Color.Turquoise);
             level.Draw(spriteBatch);
-            player.Draw(spriteBatch, new Rectangle(0, 0, 52, 72));
-            enemy.Draw(spriteBatch, new Rectangle(0, 0, 52, 72));
+            player.Draw(spriteBatch
+                //, new Rectangle(0, 0, 52, 72)
+                );
+            enemy.Draw(spriteBatch
+               // , new Rectangle(0, 0, 52, 72)
+                );
 
         }
 

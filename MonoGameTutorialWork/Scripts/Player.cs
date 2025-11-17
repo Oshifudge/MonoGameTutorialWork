@@ -32,18 +32,18 @@ namespace MonoGameTutorialWork.Scripts
             currentLives = initialLives;
         }
 
-        new void Up()
-        {
+        //new void Up()
+        //{
             
-            //levelScript.IsWall(currentPos.X, currentPos.Y);
+        //    //levelScript.IsWall(currentPos.X, currentPos.Y);
 
-        }
-        new void Down()
-        {
+        //}
+        //new void Down()
+        //{
             
-            //levelScript.IsWall(currentPos.X, currentPos.Y);
+        //    //levelScript.IsWall(currentPos.X, currentPos.Y);
 
-        }
+        //}
         new void Left()
         {
             

@@ -21,7 +21,7 @@ namespace MonoGameTutorialWork.Scripts
         protected int maxHeight;
         protected int currentHeight;
 
-        enum animState
+        public enum animState
         {
             LEFT, RIGHT, UP, DOWN, IDLE
         }
@@ -29,7 +29,7 @@ namespace MonoGameTutorialWork.Scripts
         private int animFrameIndex;
         private double currentFrameTime;
         private double frameTimeLimit;
-        private animState currentAnimState;
+        public animState currentAnimState;
 
         public Creature(Vector2 position, Levels current, Rectangle spriteRectangle)
         {
@@ -146,18 +146,23 @@ namespace MonoGameTutorialWork.Scripts
             switch(currentAnimState)
             {
                 case animState.IDLE:
-                    new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height);
+                    //new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height);
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color:Color.White);
                         break;
                 case animState.RIGHT:
-                    
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White); 
                         break;
                 case animState.LEFT:
-                    break;
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
+                        break;
                 case animState.UP:
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
                     break;
                 case animState.DOWN:
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
                     break;
                 default:
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
                     break;
 
             }
@@ -181,12 +186,12 @@ namespace MonoGameTutorialWork.Scripts
                 return false;
         }
 
-        protected void SetAnimState(animState state)
+        public void SetAnimState(animState state)
         {
             currentAnimState = state;
         }
 
-        private void SetCurrentFrame(double deltaTime)
+        protected void SetCurrentFrame(double deltaTime)
         {
             currentFrameTime += deltaTime;
             if (currentFrameTime > frameTimeLimit)
