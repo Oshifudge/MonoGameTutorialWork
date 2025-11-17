@@ -17,7 +17,7 @@ namespace MonoGameTutorialWork.Scripts
         public PlayGame()
         {
             level = new Levels();
-            player = new Player(3, new Vector2(350, 100), level, new Rectangle(52*6, 72*4, 52, 72));
+            player = new Player(3, new Vector2(350, 100), level, new Rectangle(0, 0, 52, 72));
             enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(52*3, 72*2, 52, 72));
             jumpIsPressed = false;
             
@@ -57,8 +57,8 @@ namespace MonoGameTutorialWork.Scripts
                 player.Right();
             }
 
-            player.SetCurrentFrame(Delta);
-            if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D)
+            player.SetFrame(Delta);
+            if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D))
             {
                 player.SetAnimState(Creature.animState.IDLE);
             }

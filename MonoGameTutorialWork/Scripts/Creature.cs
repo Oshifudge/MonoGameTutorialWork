@@ -197,10 +197,15 @@ namespace MonoGameTutorialWork.Scripts
             if (currentFrameTime > frameTimeLimit)
             {
                 animFrameIndex++;
-                if(animFrameIndex > 3)
+                if(animFrameIndex > 2)
                     animFrameIndex = 0;
                 currentFrameTime = 0.0f;
             }
+        }
+
+        public void SetFrame(double inputDeltaTime)
+        {
+            SetCurrentFrame(inputDeltaTime);
         }
     }
 }
