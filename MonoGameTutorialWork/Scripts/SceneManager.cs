@@ -17,9 +17,6 @@ namespace MonoGameTutorialWork.Scripts
         private PlayGame play;
         private GameOver gameOver;
 
-        private SpriteFont MainFont;
-        private string textToShow;
-
         public SceneManager()
         {
             e_State = e_gameStates.MENU;
