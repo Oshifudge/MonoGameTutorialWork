@@ -91,17 +91,18 @@ namespace MonoGameTutorialWork.Scripts
 
         }
 
-        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, HUD gameHUD)
         {
             graphicsDevice.Clear(Color.Turquoise);
             level.Draw(spriteBatch);
-            player.Draw(spriteBatch
-                //, new Rectangle(0, 0, 52, 72)
-                );
-            enemy.Draw(spriteBatch
-               // , new Rectangle(0, 0, 52, 72)
-                );
+            player.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
 
+            gameHUD.SetMessage("who else up playing they game");
+            gameHUD.DrawString(spriteBatch, new Vector2((GetScreenWH().X / 2) - 512, 0), Color.Blue);
+            gameHUD.SetMessage("Lives:");
+            gameHUD.DrawString(spriteBatch, new Vector2(20, 0), Color.Blue);
+            gameHUD.DrawHearts(spriteBatch, new Vector2(10, 0), player.GetLives());
         }
 
         public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager)

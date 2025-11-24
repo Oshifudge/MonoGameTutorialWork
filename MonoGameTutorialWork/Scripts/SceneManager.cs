@@ -16,12 +16,14 @@ namespace MonoGameTutorialWork.Scripts
         private Menu menu;
         private PlayGame play;
         private GameOver gameOver;
+        private HUD hudOverlay;
 
         public SceneManager()
         {
             e_State = e_gameStates.MENU;
             play = new PlayGame();
             gameOver = new GameOver();
+            hudOverlay = new HUD();
         }
 
         public void Update(Game1 game, GameTime time)
@@ -33,7 +35,7 @@ namespace MonoGameTutorialWork.Scripts
                 case e_gameStates.MENU:
                     {
                         SwitchState(menu.Update(game));
-                        SetMessage("in my menus");
+                        hudOverlay.SetMessage("in my menus");
                         break;
                     }
                 case e_gameStates.GAME:
@@ -45,7 +47,7 @@ namespace MonoGameTutorialWork.Scripts
                 case e_gameStates.GAMEOVER:
                     {
                         SwitchState(gameOver.Update(deltaTime));
-                        SetMessage("game over LOL");
+                        hudOverlay.SetMessage("game over LOL");
                         break;
                     }
                 default: break;
@@ -60,13 +62,14 @@ namespace MonoGameTutorialWork.Scripts
             {
                 case e_gameStates.MENU:
                     menu.Draw(graphicsDevice);
-                    spriteBatch.DrawString(MainFont, textToShow, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black);
+                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black);
                     break;
                 case e_gameStates.GAME:
-                    play.Draw(graphicsDevice, spriteBatch);
-                    break;
+                    play.Draw(graphicsDevice, spriteBatch, hudOverlay);
+                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black); break;
                 case e_gameStates.GAMEOVER:
                     gameOver.Draw(graphicsDevice);
+                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black);
                     break;
                 default: break;
             }
@@ -81,13 +84,15 @@ namespace MonoGameTutorialWork.Scripts
         public void LoadContent(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager)
         {
             play.LoadContent(contentManager, graphicsDeviceManager);
-            MainFont = contentManager.Load<SpriteFont>("MainFont");
+            hudOverlay.LoadContent(contentManager);
+            //MainFont = contentManager.Load<SpriteFont>("MainFont");
+
             menu = new Menu(play.GetScreenWH());
         }
 
         void SetMessage(string inputText)
         {
-            textToShow = inputText;
+            
         }
 
     }

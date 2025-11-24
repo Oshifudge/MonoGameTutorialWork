@@ -16,7 +16,7 @@ namespace MonoGameTutorialWork.Scripts
 
         public void LoadContent(ContentManager contentManager)
         {
-            LoadContent(contentManager);
+            //LoadContent(contentManager);
             heartIcon = contentManager.Load<Texture2D>("hud_heartFull");
             mainFont = contentManager.Load<SpriteFont>("MainFont");
         }
