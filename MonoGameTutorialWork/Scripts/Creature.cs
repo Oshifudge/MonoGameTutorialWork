@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Windows.Forms;
 using System.Diagnostics.Eventing.Reader;
+using System;
 
 namespace MonoGameTutorialWork.Scripts
 {
@@ -150,16 +151,16 @@ namespace MonoGameTutorialWork.Scripts
                     spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color:Color.White);
                         break;
                 case animState.RIGHT:
-                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White); 
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y * animFrameIndex +2 * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White); 
                         break;
                 case animState.LEFT:
-                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
                         break;
                 case animState.UP:
-                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y * animFrameIndex + 3 * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
                     break;
                 case animState.DOWN:
-                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
+                    spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y * animFrameIndex * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
                     break;
                 default:
                     spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
