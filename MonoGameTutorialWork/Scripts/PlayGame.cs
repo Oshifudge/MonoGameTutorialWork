@@ -13,6 +13,7 @@ namespace MonoGameTutorialWork.Scripts
         Player player;
         Levels level;
         bool jumpIsPressed;
+        private RenderTarget2D renderTarget;
 
         public PlayGame()
         {
@@ -91,22 +92,32 @@ namespace MonoGameTutorialWork.Scripts
 
         }
 
-        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, HUD gameHUD)
+        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, HUD gameHUD, GraphicsDeviceManager graphicsDeviceManager)
         {
-            graphicsDevice.Clear(Color.Turquoise);
-            level.Draw(spriteBatch);
-            player.Draw(spriteBatch);
-            enemy.Draw(spriteBatch);
+            int rectx = (int)player.GetCurrentPos().X - graphicsDeviceManager.PreferredBackBufferWidth / 2;
+            if (rectx > (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth / 2)
+                rectx = (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth;
+            else if (rectx <0)
+                rectx = 0;
+            int recty = (int)player.GetCurrentPos().Y - graphicsDeviceManager.PreferredBackBufferWidth / 2;
+            if (recty > (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferWidth / 2)
+                recty = (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferWidth;
+            else if (recty < 0)
+                recty = 0;
 
+            spriteBatch.Draw(renderTarget, new Rectangle(rectx, recty, graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight), Color.Bisque);
+
+            DrawRengerTarget(spriteBatch, graphicsDevice);
             gameHUD.SetMessage("who else up playing they game");
-            gameHUD.DrawString(spriteBatch, new Vector2((GetScreenWH().X / 2) - 512, 0), Color.Blue);
+            gameHUD.DrawString(spriteBatch, new Vector2((GetLevelWH().X / 2) - 512, 0), Color.Blue);
             gameHUD.SetMessage("Lives:");
             gameHUD.DrawString(spriteBatch, new Vector2(20, 0), Color.Blue);
             gameHUD.DrawHearts(spriteBatch, new Vector2(10, 0), player.GetLives());
         }
 
-        public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager)
+        public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
         {
+            renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
             player.LoadContent(CM, "chara6");
             enemy.LoadContent(CM, "orc2");
             level.LoadContent(CM, "Wall1", "hplat1");
@@ -115,7 +126,7 @@ namespace MonoGameTutorialWork.Scripts
             graphicsDeviceManager.ApplyChanges();
         }
 
-        public Vector2 GetScreenWH()
+        public Vector2 GetLevelWH()
         {
             return level.GetLevelSize();
         }
@@ -123,6 +134,27 @@ namespace MonoGameTutorialWork.Scripts
         public int GetLevelNumber()
         {
             return level.currentLevel;
+        }
+
+        private void ResetAll(GraphicsDevice graphicsDevice)
+        {
+           enemy.ResetCurrentPos();
+           player.ResetCurrentPos();
+           player.ResetLives();
+           level.ResetLevels();
+           renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
+        }
+
+        private void DrawRengerTarget(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        {
+            graphicsDevice.SetRenderTarget(renderTarget);
+            graphicsDevice.Clear(Color.FloralWhite);
+            spriteBatch.Begin();
+            level.Draw(spriteBatch);
+            player.Draw(spriteBatch);
+            enemy.Draw(spriteBatch);
+            spriteBatch.End();
+            graphicsDevice.SetRenderTarget(null);
         }
     }
 }

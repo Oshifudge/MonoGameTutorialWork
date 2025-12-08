@@ -26,7 +26,7 @@ namespace MonoGameTutorialWork.Scripts
             hudOverlay = new HUD();
         }
 
-        public void Update(Game1 game, GameTime time)
+        public void Update(Game1 game, GameTime time, GraphicsDevice graphicsDevice)
         {
             double deltaTime = time.ElapsedGameTime.TotalSeconds;
 
@@ -55,25 +55,34 @@ namespace MonoGameTutorialWork.Scripts
         }
 
 
-        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GraphicsDeviceManager graphicsDeviceManager)
         {
-            spriteBatch.Begin();
+            
             switch (e_State)
             {
                 case e_gameStates.MENU:
+                    spriteBatch.Begin();
                     menu.Draw(graphicsDevice);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black);
+                    //hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
+                    hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
+                        graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
+                    spriteBatch.End();
                     break;
                 case e_gameStates.GAME:
-                    play.Draw(graphicsDevice, spriteBatch, hudOverlay);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black); break;
+                    play.Draw(graphicsDevice, spriteBatch, hudOverlay, graphicsDeviceManager);
+                    hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
+                         graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black); 
+                    break;
                 case e_gameStates.GAMEOVER:
+                    spriteBatch.Begin();
                     gameOver.Draw(graphicsDevice);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetScreenWH().X / 2) - 256, 0), Color.Black);
+                    hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
+                        graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
+                    spriteBatch.End();
                     break;
                 default: break;
             }
-            spriteBatch.End();
+            
         }
 
         public void SwitchState(e_gameStates State)
@@ -81,13 +90,14 @@ namespace MonoGameTutorialWork.Scripts
             e_State = State;
         }
 
-        public void LoadContent(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager)
+        public void LoadContent(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
         {
-            play.LoadContent(contentManager, graphicsDeviceManager);
+            play.LoadContent(contentManager, graphicsDeviceManager, graphicsDevice);
             hudOverlay.LoadContent(contentManager);
             //MainFont = contentManager.Load<SpriteFont>("MainFont");
 
-            menu = new Menu(play.GetScreenWH());
+            //menu = new Menu(play.GetScreenWH());
+            menu = new Menu(new Vector2(graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight));
         }
 
         void SetMessage(string inputText)

@@ -32,7 +32,7 @@ namespace MonoGameTutorialWork
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _sceneManager.LoadContent(Content, _graphics);
+            _sceneManager.LoadContent(Content, _graphics, GraphicsDevice);
             // TODO: use this.Content to load your game content here
         }
 
@@ -42,7 +42,7 @@ namespace MonoGameTutorialWork
             //  Exit();
 
             // TODO: Add your update logic here
-            _sceneManager.Update(this, gameTime);
+            _sceneManager.Update(this, gameTime, GraphicsDevice);
             base.Update(gameTime);
 
         }
@@ -52,7 +52,7 @@ namespace MonoGameTutorialWork
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _sceneManager.Draw(GraphicsDevice, _spriteBatch);
+            _sceneManager.Draw(GraphicsDevice, _spriteBatch, _graphics);
             base.Draw(gameTime);
 
         }
