@@ -57,32 +57,34 @@ namespace MonoGameTutorialWork.Scripts
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GraphicsDeviceManager graphicsDeviceManager)
         {
-            
+            //spriteBatch.Begin();
             switch (e_State)
             {
-                case e_gameStates.MENU:
+               case e_gameStates.MENU:
                     spriteBatch.Begin();
                     menu.Draw(graphicsDevice);
-                    //hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
-                        graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
+                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
+                    //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
+                    //    graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
                     spriteBatch.End();
                     break;
                 case e_gameStates.GAME:
                     play.Draw(graphicsDevice, spriteBatch, hudOverlay, graphicsDeviceManager);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
-                         graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black); 
+                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
+                    //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
+                    //     graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black); 
                     break;
                 case e_gameStates.GAMEOVER:
-                    spriteBatch.Begin();
+                    
                     gameOver.Draw(graphicsDevice);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
-                        graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
-                    spriteBatch.End();
+                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
+                    //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
+                    //    graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
+                    
                     break;
                 default: break;
             }
-            
+            //spriteBatch.End();
         }
 
         public void SwitchState(e_gameStates State)

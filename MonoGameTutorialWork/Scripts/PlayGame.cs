@@ -94,33 +94,38 @@ namespace MonoGameTutorialWork.Scripts
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, HUD gameHUD, GraphicsDeviceManager graphicsDeviceManager)
         {
+            DrawRengerTarget(spriteBatch, graphicsDevice);
+            graphicsDevice.Clear(Color.LightGreen);
+
             int rectx = (int)player.GetCurrentPos().X - graphicsDeviceManager.PreferredBackBufferWidth / 2;
-            if (rectx > (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth / 2)
+            if (rectx > (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth)
                 rectx = (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth;
             else if (rectx <0)
                 rectx = 0;
             int recty = (int)player.GetCurrentPos().Y - graphicsDeviceManager.PreferredBackBufferWidth / 2;
-            if (recty > (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferWidth / 2)
+            if (recty > (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferWidth)
                 recty = (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferWidth;
             else if (recty < 0)
                 recty = 0;
 
+            spriteBatch.Begin();
             spriteBatch.Draw(renderTarget, new Rectangle(rectx, recty, graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight), Color.Bisque);
-
-            DrawRengerTarget(spriteBatch, graphicsDevice);
+            
             gameHUD.SetMessage("who else up playing they game");
             gameHUD.DrawString(spriteBatch, new Vector2((GetLevelWH().X / 2) - 512, 0), Color.Blue);
             gameHUD.SetMessage("Lives:");
             gameHUD.DrawString(spriteBatch, new Vector2(20, 0), Color.Blue);
             gameHUD.DrawHearts(spriteBatch, new Vector2(10, 0), player.GetLives());
+            spriteBatch.End();
+
         }
 
         public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
         {
-            renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
             player.LoadContent(CM, "chara6");
             enemy.LoadContent(CM, "orc2");
             level.LoadContent(CM, "Wall1", "hplat1");
+            renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
             graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
             graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
             graphicsDeviceManager.ApplyChanges();
