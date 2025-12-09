@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Windows.Forms;
 using System.Diagnostics.Eventing.Reader;
 using System;
+using SharpDX.MediaFoundation;
 
 namespace MonoGameTutorialWork.Scripts
 {
@@ -21,6 +22,8 @@ namespace MonoGameTutorialWork.Scripts
         protected bool isJumping;
         protected int maxHeight;
         protected int currentHeight;
+
+        protected bool canScroll;
 
         public enum animState
         {
@@ -45,6 +48,7 @@ namespace MonoGameTutorialWork.Scripts
             currentFrameTime = 0.0f;
             frameTimeLimit = 0.4f;
             currentAnimState = animState.IDLE;
+            canScroll = false;
         }
 
         public virtual void Up(int inputSpeed)
@@ -83,6 +87,11 @@ namespace MonoGameTutorialWork.Scripts
                 !currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + spriteDimensions.Height - 1))
             {
                 currentPos.X -= moveSpeed;
+                canScroll = true;
+            }
+            else
+            {
+                canScroll = false;
             }
         }
 
@@ -92,6 +101,11 @@ namespace MonoGameTutorialWork.Scripts
                 !currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1))
             {
                 currentPos.X += moveSpeed;
+                canScroll = true;
+            }
+            else
+            {
+                canScroll = false;
             }
         }
 
@@ -212,6 +226,11 @@ namespace MonoGameTutorialWork.Scripts
         private float GetSpeed()
         {
             return moveSpeed;
+        }
+
+        private bool GetCanScroll()
+        {
+            return canScroll;
         }
     }
 }

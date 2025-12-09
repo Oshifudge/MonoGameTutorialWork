@@ -40,7 +40,7 @@ namespace MonoGameTutorialWork.Scripts
                     }
                 case e_gameStates.GAME:
                     {
-                        SwitchState(play.Update(deltaTime));
+                        SwitchState(play.Update(deltaTime, game, graphicsDevice, graphicsDeviceManager));
                         SetMessage("who else up playing they game and we on level" + play.GetLevelNumber());
                         break;
                     }

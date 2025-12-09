@@ -16,6 +16,11 @@ namespace MonoGameTutorialWork.Scripts
         bool jumpIsPressed;
         private RenderTarget2D renderTarget;
 
+        Texture2D background;
+        Texture2D background2;
+        Texture2D foreground;
+        Vector2 currentPosition;
+
         public PlayGame()
         {
             level = new Levels();
@@ -25,7 +30,7 @@ namespace MonoGameTutorialWork.Scripts
             
         }
 
-        public e_gameStates Update(double Delta)
+        public e_gameStates Update(double Delta, Game1 game, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
