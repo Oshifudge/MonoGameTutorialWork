@@ -35,12 +35,9 @@ namespace MonoGameTutorialWork.Scripts
             for (int i = 0; i < lives; i++)
             {
                 spriteBatch.Draw(heartIcon,
-                    new Vector2(pos.X + mainFont.MeasureString(message).X + lives * heartIcon.Width, pos.Y),
+                    new Vector2(pos.X + mainFont.MeasureString(message).X + i * heartIcon.Width, pos.Y),
                     new Rectangle(0, 0, heartIcon.Width, heartIcon.Height), Color.White);
             }
         }
-        
-
-        
     }
 }

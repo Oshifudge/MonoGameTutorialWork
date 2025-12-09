@@ -17,8 +17,8 @@ namespace MonoGameTutorialWork
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _graphics.PreferredBackBufferHeight = 768;
-            _graphics.PreferredBackBufferWidth = 1024;
+            //_graphics.PreferredBackBufferHeight = 768;
+            //_graphics.PreferredBackBufferWidth = 1024;
         }
 
         protected override void Initialize()

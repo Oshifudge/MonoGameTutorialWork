@@ -26,7 +26,7 @@ namespace MonoGameTutorialWork.Scripts
             hudOverlay = new HUD();
         }
 
-        public void Update(Game1 game, GameTime time, GraphicsDevice graphicsDevice)
+        public void Update(Game1 game, GameTime time, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager)
         {
             double deltaTime = time.ElapsedGameTime.TotalSeconds;
 
@@ -69,15 +69,17 @@ namespace MonoGameTutorialWork.Scripts
                     spriteBatch.End();
                     break;
                 case e_gameStates.GAME:
+                    
                     play.Draw(graphicsDevice, spriteBatch, hudOverlay, graphicsDeviceManager);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
+                    //hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
                     //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
                     //     graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black); 
+                    
                     break;
                 case e_gameStates.GAMEOVER:
-                    
+                     
                     gameOver.Draw(graphicsDevice);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
+                    //hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
                     //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
                     //    graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
                     

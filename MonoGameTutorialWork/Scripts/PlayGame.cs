@@ -5,6 +5,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Content;
 using MonoGameTutorialWork.Scripts;
 
+
 namespace MonoGameTutorialWork.Scripts
 {
     internal class PlayGame
@@ -94,6 +95,7 @@ namespace MonoGameTutorialWork.Scripts
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, HUD gameHUD, GraphicsDeviceManager graphicsDeviceManager)
         {
+            
             DrawRengerTarget(spriteBatch, graphicsDevice);
             graphicsDevice.Clear(Color.LightGreen);
 
@@ -102,14 +104,14 @@ namespace MonoGameTutorialWork.Scripts
                 rectx = (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth;
             else if (rectx <0)
                 rectx = 0;
-            int recty = (int)player.GetCurrentPos().Y - graphicsDeviceManager.PreferredBackBufferWidth / 2;
-            if (recty > (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferWidth)
-                recty = (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferWidth;
+            int recty = (int)player.GetCurrentPos().Y - graphicsDeviceManager.PreferredBackBufferHeight / 2;
+            if (recty > (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferHeight)
+                recty = (int)GetLevelWH().Y - graphicsDeviceManager.PreferredBackBufferHeight;
             else if (recty < 0)
                 recty = 0;
 
             spriteBatch.Begin();
-            spriteBatch.Draw(renderTarget, new Rectangle(rectx, recty, graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight), Color.Bisque);
+            spriteBatch.Draw(renderTarget, new Vector2(0,0), new Rectangle(rectx, recty, graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight), Color.White);
             
             gameHUD.SetMessage("who else up playing they game");
             gameHUD.DrawString(spriteBatch, new Vector2((GetLevelWH().X / 2) - 512, 0), Color.Blue);
@@ -117,7 +119,6 @@ namespace MonoGameTutorialWork.Scripts
             gameHUD.DrawString(spriteBatch, new Vector2(20, 0), Color.Blue);
             gameHUD.DrawHearts(spriteBatch, new Vector2(10, 0), player.GetLives());
             spriteBatch.End();
-
         }
 
         public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
@@ -125,9 +126,15 @@ namespace MonoGameTutorialWork.Scripts
             player.LoadContent(CM, "chara6");
             enemy.LoadContent(CM, "orc2");
             level.LoadContent(CM, "Wall1", "hplat1");
+            
+            //graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
+            //graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
+            graphicsDeviceManager.PreferredBackBufferHeight = 1080;
+            graphicsDeviceManager.PreferredBackBufferWidth = 1920;
             renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
-            graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
-            graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
+            //Console.WriteLine("thing is " + graphicsDeviceManager.PreferredBackBufferWidth);
+            //Console.WriteLine("thing 2 is " + graphicsDeviceManager.PreferredBackBufferHeight);
+            
             graphicsDeviceManager.ApplyChanges();
         }
 
@@ -153,12 +160,12 @@ namespace MonoGameTutorialWork.Scripts
         private void DrawRengerTarget(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             graphicsDevice.SetRenderTarget(renderTarget);
-            graphicsDevice.Clear(Color.FloralWhite);
+            graphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
-            spriteBatch.End();
+           spriteBatch.End();
             graphicsDevice.SetRenderTarget(null);
         }
     }
