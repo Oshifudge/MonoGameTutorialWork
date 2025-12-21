@@ -154,8 +154,8 @@ namespace MonoGameTutorialWork.Scripts
             
             //graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
             //graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
-            graphicsDeviceManager.PreferredBackBufferHeight = 1080;
-            graphicsDeviceManager.PreferredBackBufferWidth = 1920;
+            graphicsDeviceManager.PreferredBackBufferHeight = 540;
+            graphicsDeviceManager.PreferredBackBufferWidth = 960;
             renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
             //Console.WriteLine("thing is " + graphicsDeviceManager.PreferredBackBufferWidth);
             //Console.WriteLine("thing 2 is " + graphicsDeviceManager.PreferredBackBufferHeight);
