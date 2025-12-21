@@ -21,13 +21,17 @@ namespace MonoGameTutorialWork.Scripts
         Texture2D foreground;
         Vector2 currentPosition;
 
-        public PlayGame()
+        public PlayGame(ContentManager cM)
         {
             level = new Levels();
             player = new Player(3, new Vector2(350, 100), level, new Rectangle(0, 0, 52, 72));
             enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(52*3, 72*2, 52, 72));
             jumpIsPressed = false;
-            
+            currentPosition = new Vector2(0, 0);
+            background = cM.Load<Texture2D>("backgroundCastle");
+            background2 = cM.Load<Texture2D>("castlegrey");
+            foreground = cM.Load<Texture2D>("tree31");
+
         }
 
         public e_gameStates Update(double Delta, Game1 game, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager)
@@ -57,11 +61,27 @@ namespace MonoGameTutorialWork.Scripts
             {
                 player.SetAnimState(Creature.animState.LEFT);
                 player.Left();
+                if(Player.GetCanScroll())
+                {
+                    if(Player.GetCurrentPos().X < (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth/2 &&
+                        Player.GetCurrentPos().X > graphicsDeviceManager.PreferredBackBufferWidth/2)
+                    {
+                        currentPosition.X += player.GetMoveSpeed();
+                    }
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 player.SetAnimState(Creature.animState.RIGHT);
                 player.Right();
+                if (Player.GetCanScroll())
+                {
+                    if (Player.GetCurrentPos().X < (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth / 2 &&
+                        Player.GetCurrentPos().X > graphicsDeviceManager.PreferredBackBufferWidth / 2)
+                    {
+                        currentPosition.X -= player.GetMoveSpeed();
+                    }
+                }
             }
 
             player.SetFrame(Delta);
@@ -167,6 +187,17 @@ namespace MonoGameTutorialWork.Scripts
             graphicsDevice.SetRenderTarget(renderTarget);
             graphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
+            for(int i = 0; i < 2; i++)
+            {
+                background.Draw(spriteBatch, new Vector2((background.Width * i) + currentPosition.X * 0.1f, 0), Color.White);
+                //new Vector2((background2.Width * i) + currentPosition.X * 0.1f, 0);
+            }
+            for (int i = 0; i < 12; i++)
+            {
+                background2.Draw(spriteBatch, new Vector2((1000 * i) + currentPosition.X * 0.3f, 0), Color.White);
+                //new Vector2((background2.Width * i) + currentPosition.X * 0.3f, 0);
+            }
+
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);
             enemy.Draw(spriteBatch);

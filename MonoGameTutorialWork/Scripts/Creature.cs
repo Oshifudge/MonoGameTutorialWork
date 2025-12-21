@@ -228,7 +228,7 @@ namespace MonoGameTutorialWork.Scripts
             return moveSpeed;
         }
 
-        private bool GetCanScroll()
+        public bool GetCanScroll()
         {
             return canScroll;
         }
