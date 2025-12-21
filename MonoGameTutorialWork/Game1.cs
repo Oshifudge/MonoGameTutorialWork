@@ -33,6 +33,7 @@ namespace MonoGameTutorialWork
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _sceneManager.LoadContent(Content, _graphics, GraphicsDevice);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -42,7 +43,7 @@ namespace MonoGameTutorialWork
             //  Exit();
 
             // TODO: Add your update logic here
-            _sceneManager.Update(this, gameTime, GraphicsDevice);
+            _sceneManager.Update(this, gameTime, GraphicsDevice, _graphics);
             base.Update(gameTime);
 
         }

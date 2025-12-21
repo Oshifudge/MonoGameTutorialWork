@@ -223,7 +223,7 @@ namespace MonoGameTutorialWork.Scripts
             SetCurrentFrame(inputDeltaTime);
         }
 
-        private float GetSpeed()
+        public float GetSpeed()
         {
             return moveSpeed;
         }
