@@ -212,7 +212,7 @@ namespace MonoGameTutorialWork.Scripts
             if (currentFrameTime > frameTimeLimit)
             {
                 animFrameIndex++;
-                if(animFrameIndex > 2)
+                if(animFrameIndex > 5)
                     animFrameIndex = 0;
                 currentFrameTime = 0.0f;
             }

@@ -12,6 +12,7 @@ namespace MonoGameTutorialWork.Scripts
     {
         Enemy enemy;
         Player player;
+        Player2 player2;
         Levels level;
         bool jumpIsPressed;
         private RenderTarget2D renderTarget;
@@ -25,7 +26,8 @@ namespace MonoGameTutorialWork.Scripts
         {
             
             level = new Levels();
-            player = new Player(3, new Vector2(350, 100), level, new Rectangle(0, 0, 52, 72));
+            player = new Player(3, new Vector2(300, 1300), level, new Rectangle(0, 0, 32, 32));
+            player2 = new Player2(3, new Vector2(400, 100), level, new Rectangle(0, 0, 52, 72));
             enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(52*3, 72*2, 52, 72));
             jumpIsPressed = false;
             currentPosition = new Vector2(0, 0);
@@ -146,14 +148,14 @@ namespace MonoGameTutorialWork.Scripts
         public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
         {
 
-            player.LoadContent(CM, "chara6");
+            player.LoadContent(CM, "Player1SpriteSheet2x");
             enemy.LoadContent(CM, "orc2");
             level.LoadContent(CM, "Wall1", "hplat1");
             
             //graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
             //graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
-            graphicsDeviceManager.PreferredBackBufferHeight = 540;
-            graphicsDeviceManager.PreferredBackBufferWidth = 960;
+            graphicsDeviceManager.PreferredBackBufferHeight = 1080;
+            graphicsDeviceManager.PreferredBackBufferWidth = 1920;
             renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
             //Console.WriteLine("thing is " + graphicsDeviceManager.PreferredBackBufferWidth);
             //Console.WriteLine("thing 2 is " + graphicsDeviceManager.PreferredBackBufferHeight);
