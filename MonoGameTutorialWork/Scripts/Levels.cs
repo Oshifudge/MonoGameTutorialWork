@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 using System;
+using System.Collections.Generic;
 
 
 namespace MonoGameTutorialWork.Scripts
@@ -16,29 +17,35 @@ namespace MonoGameTutorialWork.Scripts
         private Texture2D obstacleTexture2;
         private Vector2 textureWH;
         private string[] levelContents;
+        private string[] objectSpawns;
         public int currentLevel;
 
         private int animFrameIndex;
         private double currentFrameTime;
         private double frameTimeLimit;
+        private Vector2 tileSize;
+
+        Obstacle obstacle;
+        List<Vector2> ObstacleSpawnPoints = new List<Vector2>();
 
         public Levels()
         {
+            tileSize = new Vector2(128, 128);
             currentLevel = 1;
             BuildNewLevel();
+            
         }
 
         public void LoadContent(ContentManager cM, string levelFileName, string platformFileName, string obstacleFileName, string obstacle2FileName)
         {
-            animFrameIndex = 0;
-            currentFrameTime = 0.0f;
-            frameTimeLimit = 0.4f;
-
             wallTexture = cM.Load<Texture2D>(levelFileName);
             platformTexture = cM.Load<Texture2D>(platformFileName);
             obstacleTexture = cM.Load<Texture2D>(obstacleFileName);
             obstacleTexture2 = cM.Load<Texture2D>(obstacle2FileName);
             textureWH = new Vector2(wallTexture.Width, wallTexture.Height);
+            animFrameIndex = 0;
+            currentFrameTime = 0.0f;
+            frameTimeLimit = 0.4f;
         }
 
         private int GetArrayWidth()
@@ -67,6 +74,7 @@ namespace MonoGameTutorialWork.Scripts
             {
                 Console.WriteLine(line);
             }
+            SpawnObstacle();
         }
         public void ResetLevels()
         {
@@ -82,51 +90,63 @@ namespace MonoGameTutorialWork.Scripts
                 {
                     if (levelContents[row][col] == 'W')
                     {
-                        spriteBatch.Draw(wallTexture, new Vector2(wallTexture.Width * col, wallTexture.Height * row), Color.White);
+                        spriteBatch.Draw(wallTexture, new Vector2(tileSize.X * col, tileSize.Y * row), Color.White);
                     }
 
                     if (levelContents[row][col] == 'P')
                     {
                         spriteBatch.Draw(platformTexture, new Vector2(platformTexture.Width * col, platformTexture.Height * row), Color.White);
                     }
-                    if (levelContents[row][col] == 'O')
-                    {
-                        spriteBatch.Draw(obstacleTexture, new Vector2(obstacleTexture.Width * col, obstacleTexture.Height * row), Color.White);
+                    //if (levelContents[row][col] == 'O')
+                    //{
+                    //    if (animFrameIndex == 0)
+                    //    {
+                    //        spriteBatch.Draw(obstacleTexture, new Vector2(obstacleTexture.Width * col, obstacleTexture.Height * row), Color.White);
+                    //        animFrameIndex++;
+                    //        currentFrameTime = 0.0f;
+                    //    }
+                    //    else if (animFrameIndex == 1)
+                    //    {
+                    //        spriteBatch.Draw(obstacleTexture2, new Vector2(obstacleTexture.Width * col, obstacleTexture.Height * row), Color.White);
+                    //        animFrameIndex = 0;
+                    //        currentFrameTime = 0.0f;
+                    //    }
+                    //}
+                }
+            }
+        }
 
-                        //obstacle = new Obstacle(new Vector2(obstacleTexture.Width / 2 * col, obstacleTexture.Height * row), currentLevel, new Rectangle(0, 0, 64, 64));
-                        //obstacle.LoadContent(CM, "ObstacleSpriteSheet");
+        public void SpawnObstacle()
+        {
+            objectSpawns = File.ReadAllLines(@"..\Levels\" + "ObjectSpawns.txt");
+            for (int col = 0; col < GetArrayWidth(); col++)
+            {
+                for (int row = 0; row < GetArrayHeight(); row++)
+                {
+                    if (objectSpawns[row][col] == 'O')
+                    {
+                        ObstacleSpawnPoints.Add(new Vector2(tileSize.X * col, tileSize.Y * row));
+                        //obstacle = new Obstacle();
+                        for (int i = 0; i < ObstacleSpawnPoints.Count; i++)
+                        {
+                            Console.WriteLine(ObstacleSpawnPoints[i]);
+                            obstacle = new Obstacle(ObstacleSpawnPoints[i], new Rectangle(0, 0, 128, 128));
+                        }
+
                     }
                 }
             }
         }
 
-        public void AnimateObstacles(SpriteBatch spriteBatch)
+        public void AnimateObstacles(double deltaTime)
         {
-            //timer ticks / if exceeds limit, change frame
             currentFrameTime += deltaTime;
             if (currentFrameTime > frameTimeLimit)
             {
-                for (int col = 0; col < GetArrayWidth(); col++)
-                {
-                    for (int row = 0; row < GetArrayHeight(); row++)
-                    {
-                        if (levelContents[row][col] == 'O')
-                        {
-                            if (animFrameIndex == 0)
-                            {
-                                spriteBatch.Draw(obstacleTexture, new Vector2(obstacleTexture.Width * col, obstacleTexture.Height * row), Color.White);
-                                animFrameIndex++;
-                                currentFrameTime = 0.0f;
-                            }
-                            else if (animFrameIndex == 1)
-                            {
-                                spriteBatch.Draw(obstacleTexture2, new Vector2(obstacleTexture.Width * col, obstacleTexture.Height * row), Color.White);
-                                animFrameIndex = 0;
-                                currentFrameTime = 0.0f;
-                            }
-                        }
-                    }
-                }
+                animFrameIndex++;
+                if (animFrameIndex == 2 )
+                    animFrameIndex = 0;
+                currentFrameTime = 0.0f;
             }
         }
 

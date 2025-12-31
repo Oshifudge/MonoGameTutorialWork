@@ -13,8 +13,8 @@ namespace MonoGameTutorialWork.Scripts
         Enemy enemy;
         Player player;
         Player2 player2;
-        Obstacle obstacle;
         Levels level;
+        Obstacle obstacle;
         bool jumpIsPressed;
         private RenderTarget2D renderTarget;
 
@@ -115,7 +115,8 @@ namespace MonoGameTutorialWork.Scripts
 
             player.SetFrame(Delta);
             player2.SetFrame(Delta);
-            level.AnimateObstacle(SpriteBatch);
+            level.AnimateObstacles(Delta);
+
 
             if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D))
             {
@@ -128,6 +129,7 @@ namespace MonoGameTutorialWork.Scripts
 
             enemy.Chase(player);
             enemy.SetFrame(Delta);
+
 
             if (enemy.CollidesWith(player))
             {
@@ -160,6 +162,7 @@ namespace MonoGameTutorialWork.Scripts
             
             DrawRengerTarget(spriteBatch, graphicsDevice);
             graphicsDevice.Clear(Color.LightGreen);
+            
 
             int rectx = (int)player.GetCurrentPos().X - graphicsDeviceManager.PreferredBackBufferWidth / 2;
             if (rectx > (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth)
@@ -185,12 +188,12 @@ namespace MonoGameTutorialWork.Scripts
 
         public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
         {
-
+            level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x");
             player.LoadContent(CM, "Player1SpriteSheet2x");
             player2.LoadContent(CM, "Player2SpriteSheet2x");
-            //obstacle.LoadContent(CM, "SingleObstacle");
+            obstacle.LoadContent(CM, "SingleObstacle2x");
             enemy.LoadContent(CM, "orc2");
-            level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x");
+            
             
             //graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
             //graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
@@ -247,6 +250,7 @@ namespace MonoGameTutorialWork.Scripts
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);
             player2.Draw(spriteBatch);
+            obstacle.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
            spriteBatch.End();
             graphicsDevice.SetRenderTarget(null);

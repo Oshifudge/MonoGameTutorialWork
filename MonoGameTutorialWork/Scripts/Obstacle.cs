@@ -5,11 +5,29 @@ using MonoGameTutorialWork.Scripts;
 
 namespace MonoGameTutorialWork.Scripts
 {
-    internal class Obstacle : Creature
+    internal class Obstacle
     {
-        public Obstacle(Vector2 position, Levels currentLevel, Rectangle rectangle) : base(position, currentLevel, rectangle)
+        public int count = 5;
+        private Rectangle spriteDimensions;
+        private Texture2D sprite;
+        private Vector2 currentPos;
+
+
+        public Obstacle(Vector2 position, Rectangle spriteRectangle)
         {
-            moveSpeed = 1;
+            currentPos = position;
+            spriteDimensions = spriteRectangle;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
+
+        }
+
+        public void LoadContent(ContentManager cm, string spriteSheetName)
+        {
+            sprite = cm.Load<Texture2D>(spriteSheetName);
         }
     }
 

@@ -11,6 +11,7 @@ namespace MonoGameTutorialWork
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SceneManager _sceneManager;
+        private Levels _levels;
 
         public Game1()
         {
