@@ -25,8 +25,11 @@ namespace MonoGameTutorialWork.Scripts
         private double frameTimeLimit;
         private Vector2 tileSize;
 
+        bool shouldDrawObstacles;
+
         Obstacle obstacle;
         List<Vector2> ObstacleSpawnPoints = new List<Vector2>();
+        List<Obstacle> Obstacles = new List<Obstacle>();
 
         public Levels()
         {
@@ -114,6 +117,13 @@ namespace MonoGameTutorialWork.Scripts
                     //}
                 }
             }
+            if (shouldDrawObstacles)
+            {
+                foreach (Obstacle obs in Obstacles)
+                {
+                    obs.Draw(spriteBatch, obstacleTexture);
+                }
+            }
         }
 
         public void SpawnObstacle()
@@ -126,16 +136,18 @@ namespace MonoGameTutorialWork.Scripts
                     if (objectSpawns[row][col] == 'O')
                     {
                         ObstacleSpawnPoints.Add(new Vector2(tileSize.X * col, tileSize.Y * row));
-                        //obstacle = new Obstacle();
+                        
                         for (int i = 0; i < ObstacleSpawnPoints.Count; i++)
                         {
                             Console.WriteLine(ObstacleSpawnPoints[i]);
-                            obstacle = new Obstacle(ObstacleSpawnPoints[i], new Rectangle(0, 0, 128, 128));
-                        }
+                            obstacle = new Obstacle(ObstacleSpawnPoints[i], new Rectangle(0, 0, 128, 128), obstacleTexture);
 
+                        }
+                        Obstacles.Add(obstacle);
                     }
                 }
             }
+            shouldDrawObstacles = true;
         }
 
         public void AnimateObstacles(double deltaTime)

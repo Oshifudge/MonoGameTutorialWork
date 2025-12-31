@@ -191,7 +191,7 @@ namespace MonoGameTutorialWork.Scripts
             level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x");
             player.LoadContent(CM, "Player1SpriteSheet2x");
             player2.LoadContent(CM, "Player2SpriteSheet2x");
-            obstacle.LoadContent(CM, "SingleObstacle2x");
+            //obstacle.LoadContent(CM, "SingleObstacle2x");
             enemy.LoadContent(CM, "orc2");
             
             
@@ -250,7 +250,6 @@ namespace MonoGameTutorialWork.Scripts
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);
             player2.Draw(spriteBatch);
-            obstacle.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
            spriteBatch.End();
             graphicsDevice.SetRenderTarget(null);
