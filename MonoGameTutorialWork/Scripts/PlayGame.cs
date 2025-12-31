@@ -13,6 +13,7 @@ namespace MonoGameTutorialWork.Scripts
         Enemy enemy;
         Player player;
         Player2 player2;
+        Obstacle obstacle;
         Levels level;
         bool jumpIsPressed;
         private RenderTarget2D renderTarget;
@@ -26,8 +27,8 @@ namespace MonoGameTutorialWork.Scripts
         {
             
             level = new Levels();
-            player = new Player(3, new Vector2(300, 1300), level, new Rectangle(0, 0, 32, 32));
-            player2 = new Player2(3, new Vector2(400, 100), level, new Rectangle(0, 0, 52, 72));
+            player = new Player(3, new Vector2(300, 1200), level, new Rectangle(0, 0, 32, 32));
+            player2 = new Player2(3, new Vector2(300, 800), level, new Rectangle(0, 0, 32, 32));
             enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(52*3, 72*2, 52, 72));
             jumpIsPressed = false;
             currentPosition = new Vector2(0, 0);
@@ -41,17 +42,19 @@ namespace MonoGameTutorialWork.Scripts
             }
 
             player.JumpOrFall(2);
+            player2.JumpOrFall(2);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 if (!jumpIsPressed)
                 {
                     jumpIsPressed = true;
                     player.SetIsJumping();
+                    player2.SetIsJumping();
                 }
             }
 
-            if (Keyboard.GetState().IsKeyUp(Keys.W))
+            if (Keyboard.GetState().IsKeyUp(Keys.Space))
             {
                 jumpIsPressed = false;
             }
@@ -83,11 +86,46 @@ namespace MonoGameTutorialWork.Scripts
                 }
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.J))
+            {
+                player2.SetAnimState(Creature.animState.LEFT);
+                player2.Left();
+                //if (player.GetCanScroll())
+                //{
+                //    if (player.GetCurrentPos().X < (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth / 2 &&
+                //        player.GetCurrentPos().X > graphicsDeviceManager.PreferredBackBufferWidth / 2)
+                //    {
+                        currentPosition.X += player2.GetSpeed();
+                //    }
+                //}
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.L))
+            {
+                player2.SetAnimState(Creature.animState.RIGHT);
+                player2.Right();
+                //if (player.GetCanScroll())
+                //{
+                //    if (player.GetCurrentPos().X < (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth / 2 &&
+                //        player.GetCurrentPos().X > graphicsDeviceManager.PreferredBackBufferWidth / 2)
+                //    {
+                        currentPosition.X -= player2.GetSpeed();
+                //    }
+                //}
+            }
+
             player.SetFrame(Delta);
+            player2.SetFrame(Delta);
+            level.AnimateObstacle(SpriteBatch);
+
             if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D))
             {
                 player.SetAnimState(Creature.animState.IDLE);
             }
+            if(Keyboard.GetState().IsKeyUp(Keys.J) && Keyboard.GetState().IsKeyUp(Keys.L))
+            {
+                player2.SetAnimState(Creature.animState.IDLE);
+            }
+
             enemy.Chase(player);
             enemy.SetFrame(Delta);
 
@@ -149,8 +187,10 @@ namespace MonoGameTutorialWork.Scripts
         {
 
             player.LoadContent(CM, "Player1SpriteSheet2x");
+            player2.LoadContent(CM, "Player2SpriteSheet2x");
+            //obstacle.LoadContent(CM, "SingleObstacle");
             enemy.LoadContent(CM, "orc2");
-            level.LoadContent(CM, "Wall1", "hplat1");
+            level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x");
             
             //graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
             //graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
@@ -180,6 +220,7 @@ namespace MonoGameTutorialWork.Scripts
         {
            enemy.ResetCurrentPos();
            player.ResetCurrentPos();
+           player2.ResetCurrentPos();
            player.ResetLives();
            level.ResetLevels();
            renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
@@ -205,6 +246,7 @@ namespace MonoGameTutorialWork.Scripts
 
             level.Draw(spriteBatch);
             player.Draw(spriteBatch);
+            player2.Draw(spriteBatch);
             enemy.Draw(spriteBatch);
            spriteBatch.End();
             graphicsDevice.SetRenderTarget(null);
