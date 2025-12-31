@@ -25,9 +25,9 @@ namespace MonoGameTutorialWork.Scripts
 
         }
 
-        public void LoadContent(ContentManager cm, string spriteSheetName)
+        public void LoadContent(ContentManager cM, string spriteSheetName)
         {
-            sprite = cm.Load<Texture2D>(spriteSheetName);
+            sprite = cM.Load<Texture2D>(spriteSheetName);
         }
     }
 

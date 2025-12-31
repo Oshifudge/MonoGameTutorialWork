@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Content;
 using System.Windows.Forms;
 using System.Diagnostics.Eventing.Reader;
 using System;
-using SharpDX.MediaFoundation;
 
 namespace MonoGameTutorialWork.Scripts
 {
