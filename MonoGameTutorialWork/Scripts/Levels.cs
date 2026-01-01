@@ -30,6 +30,7 @@ namespace MonoGameTutorialWork.Scripts
         Obstacle obstacle;
         List<Vector2> ObstacleSpawnPoints = new List<Vector2>();
         List<Obstacle> Obstacles = new List<Obstacle>();
+        double deltaTime;
 
         public Levels()
         {
@@ -121,7 +122,7 @@ namespace MonoGameTutorialWork.Scripts
             {
                 foreach (Obstacle obs in Obstacles)
                 {
-                    obs.Draw(spriteBatch, obstacleTexture);
+                    obs.Draw(deltaTime, spriteBatch, obstacleTexture, obstacleTexture2);
                 }
             }
         }
@@ -150,16 +151,9 @@ namespace MonoGameTutorialWork.Scripts
             shouldDrawObstacles = true;
         }
 
-        public void AnimateObstacles(double deltaTime)
+        public void GetDeltaTime(double playGameDeltaTime)
         {
-            currentFrameTime += deltaTime;
-            if (currentFrameTime > frameTimeLimit)
-            {
-                animFrameIndex++;
-                if (animFrameIndex == 2 )
-                    animFrameIndex = 0;
-                currentFrameTime = 0.0f;
-            }
+            deltaTime = playGameDeltaTime;
         }
 
         public bool IsWall(float x, float y)
@@ -168,6 +162,13 @@ namespace MonoGameTutorialWork.Scripts
             {
                 return true;
             }
+            return false;
+        }
+        
+        public bool IsObstacle(float x, float y)
+        {
+            if (objectSpawns[(int)y / obstacleTexture.Height][(int)x / obstacleTexture.Width] == 'O')
+                return true;
             return false;
         }
 

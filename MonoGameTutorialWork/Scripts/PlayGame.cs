@@ -115,7 +115,7 @@ namespace MonoGameTutorialWork.Scripts
 
             player.SetFrame(Delta);
             player2.SetFrame(Delta);
-            level.AnimateObstacles(Delta);
+            level.GetDeltaTime(Delta);
 
 
             if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D))
@@ -145,7 +145,8 @@ namespace MonoGameTutorialWork.Scripts
                 player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
-            if (player.GetLives() == 0)
+
+            if (player.GetLives() == 0 || player2.GetLives() == 0)
             {
                 level.ResetLevels();
                 return e_gameStates.GAMEOVER;
@@ -178,11 +179,14 @@ namespace MonoGameTutorialWork.Scripts
             spriteBatch.Begin();
             spriteBatch.Draw(renderTarget, new Vector2(0,0), new Rectangle(rectx, recty, graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight), Color.White);
             
-            gameHUD.SetMessage("who else up playing they game");
-            gameHUD.DrawString(spriteBatch, new Vector2((GetLevelWH().X / 2) - 512, 0), Color.Blue);
-            gameHUD.SetMessage("Lives:");
-            gameHUD.DrawString(spriteBatch, new Vector2(20, 0), Color.Blue);
-            gameHUD.DrawHearts(spriteBatch, new Vector2(10, 0), player.GetLives());
+            //gameHUD.SetMessage("who else up playing they game");
+            //gameHUD.DrawString(spriteBatch, new Vector2((GetLevelWH().X / 2) - 512, 0), Color.Blue);
+            //gameHUD.SetMessage("P1 Lives ");
+            gameHUD.DrawString(spriteBatch,"P1 Lives " , new Vector2(20, 0), Color.OrangeRed);
+            gameHUD.DrawHearts(spriteBatch, new Vector2(10, 10), player.GetLives(), Color.Red);
+            //gameHUD.SetMessage("P2 Lives ");
+            gameHUD.DrawString(spriteBatch, "P2 Lives ", new Vector2(1000, 0), Color.Blue);
+            gameHUD.DrawHearts(spriteBatch, new Vector2(1000, 10), player2.GetLives(), Color.Blue);
             spriteBatch.End();
         }
 

@@ -63,7 +63,7 @@ namespace MonoGameTutorialWork.Scripts
                case e_gameStates.MENU:
                     spriteBatch.Begin();
                     menu.Draw(graphicsDevice);
-                    hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
+                    hudOverlay.DrawString(spriteBatch,"Little red thing and little blue thing" ,new Vector2((play.GetLevelWH().X / 2) - 800, 0), Color.Black);
                     //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
                     //    graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
                     spriteBatch.End();

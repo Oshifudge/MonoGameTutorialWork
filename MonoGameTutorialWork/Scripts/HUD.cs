@@ -25,18 +25,18 @@ namespace MonoGameTutorialWork.Scripts
             message = inputMessage;
         }
 
-        public void DrawString(SpriteBatch spriteBatch, Vector2 pos, Color col)
+        public void DrawString(SpriteBatch spriteBatch, string displayMessage,Vector2 pos, Color col)
         {
-            spriteBatch.DrawString(mainFont, message, pos, col);
+            spriteBatch.DrawString(mainFont, displayMessage, pos, col);
         }
 
-        public void DrawHearts(SpriteBatch spriteBatch, Vector2 pos, int lives)
+        public void DrawHearts(SpriteBatch spriteBatch, Vector2 pos, int lives, Color col)
         {
             for (int i = 0; i < lives; i++)
             {
                 spriteBatch.Draw(heartIcon,
                     new Vector2(pos.X + mainFont.MeasureString(message).X + i * heartIcon.Width, pos.Y),
-                    new Rectangle(0, 0, heartIcon.Width, heartIcon.Height), Color.White);
+                    new Rectangle(0, 0, heartIcon.Width, heartIcon.Height), col);
             }
         }
     }

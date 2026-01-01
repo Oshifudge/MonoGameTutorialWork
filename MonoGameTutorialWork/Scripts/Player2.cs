@@ -44,16 +44,27 @@ namespace MonoGameTutorialWork.Scripts
         //    //levelScript.IsWall(currentPos.X, currentPos.Y);
 
         //}
-        new void Left()
+        public override void Left()
         {
-
-            //levelScript.IsWall(currentPos.X, currentPos.Y);
+            base.Left();
+            if (currentLevel.IsObstacle((int)currentPos.X, (int)currentPos.Y) ||
+                currentLevel.IsObstacle((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
+            {
+                base.ResetCurrentPos();
+                ReduceLives();
+            }
 
         }
-        new void Right()
+        public override void Right()
         {
-
-            //levelScript.IsWall(currentPos.X, currentPos.Y);
+            base.Right();
+            if (currentLevel.IsObstacle((int)currentPos.X, (int)currentPos.Y) ||
+                currentLevel.IsObstacle((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
+            {
+                
+                base.ResetCurrentPos();
+                ReduceLives();
+            }
 
         }
     }
