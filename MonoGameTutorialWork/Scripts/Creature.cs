@@ -69,7 +69,7 @@ namespace MonoGameTutorialWork.Scripts
         public virtual void Down(int inputSpeed)
         {
             bool onFloor = currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height - 1) + inputSpeed) ||
-                currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
+                currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + (spriteDimensions.Height - 1) + moveSpeed);
             bool onPlatform = currentLevel.IsPlatform((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height - 1) + inputSpeed) ||
                 currentLevel.IsPlatform((int)currentPos.X + (spriteDimensions.Width - 1), (int)currentPos.Y + (spriteDimensions.Height - 1) + inputSpeed);
             bool sameRow = currentLevel.IsInSameRow((int)currentPos.Y + (spriteDimensions.Height - 1), (int)currentPos.Y + (spriteDimensions.Height - 1) + inputSpeed);
@@ -110,10 +110,10 @@ namespace MonoGameTutorialWork.Scripts
 
         public void SetIsJumping()
         {
-            bool onFloor = currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height)) ||
-                currentLevel.IsWall((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
-            bool onPlatform = currentLevel.IsPlatform((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height)) ||
-                currentLevel.IsPlatform((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + spriteDimensions.Height - 1);
+            bool onFloor = currentLevel.IsWall((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height) + moveSpeed) ||
+                currentLevel.IsWall((int)currentPos.X + (spriteDimensions.Width - 1), (int)currentPos.Y + (spriteDimensions.Height - 1) +moveSpeed);
+            bool onPlatform = currentLevel.IsPlatform((int)currentPos.X, (int)currentPos.Y + (spriteDimensions.Height) + moveSpeed) ||
+                currentLevel.IsPlatform((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y + (spriteDimensions.Height - 1) + moveSpeed);
             bool sameRow = currentLevel.IsInSameRow((int)currentPos.Y + (spriteDimensions.Height - 1), (int)currentPos.Y + (spriteDimensions.Height - 1) + 1);
 
             if(onFloor || (onPlatform & !sameRow))

@@ -14,7 +14,7 @@ namespace MonoGameTutorialWork.Scripts
         {
             moveSpeed = 1.5f;
             currentLives = lives;
-            initialLives = currentLives;
+            initialLives = lives;
             score = 0;
         }
 

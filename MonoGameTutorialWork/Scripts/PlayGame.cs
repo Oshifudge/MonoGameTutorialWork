@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
 using MonoGameTutorialWork.Scripts;
+using System;
 
 
 namespace MonoGameTutorialWork.Scripts
@@ -17,6 +18,8 @@ namespace MonoGameTutorialWork.Scripts
         Obstacle obstacle;
         bool jumpIsPressed;
         private RenderTarget2D renderTarget;
+        int storedP1Lives;
+        int storedP2Lives;
 
         Texture2D background;
         Texture2D background2;
@@ -27,11 +30,13 @@ namespace MonoGameTutorialWork.Scripts
         {
             
             level = new Levels();
-            player = new Player(3, new Vector2(300, 1200), level, new Rectangle(0, 0, 32, 32));
-            player2 = new Player2(3, new Vector2(300, 800), level, new Rectangle(0, 0, 32, 32));
+            player = new Player(3, new Vector2(300, 1370), level, new Rectangle(0, 0, 32, 32));
+            player2 = new Player2(3, new Vector2(300, 850), level, new Rectangle(0, 0, 32, 32));
             enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(52*3, 72*2, 52, 72));
             jumpIsPressed = false;
             currentPosition = new Vector2(0, 0);
+            storedP1Lives = player.GetLives();
+            storedP2Lives = player2.GetLives();
         }
 
         public e_gameStates Update(double Delta, Game1 game, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager)
@@ -130,7 +135,7 @@ namespace MonoGameTutorialWork.Scripts
             enemy.Chase(player);
             enemy.SetFrame(Delta);
 
-
+            
             if (enemy.CollidesWith(player))
             {
                 player.ReduceLives();
@@ -148,8 +153,27 @@ namespace MonoGameTutorialWork.Scripts
 
             if (player.GetLives() == 0 || player2.GetLives() == 0)
             {
-                level.ResetLevels();
+                //level.ResetLevels();
+                player.ResetLives();
+                player2.ResetLives();
                 return e_gameStates.GAMEOVER;
+                ResetAll(graphicsDevice);
+            }
+
+            //storedP1Lives = player.GetLives();
+            //storedP2Lives = player2.GetLives();
+            if (!(player.GetLives()  == storedP1Lives))
+            {
+                player2.ResetCurrentPos();
+                storedP1Lives = player.GetLives();
+                storedP2Lives = player2.GetLives();
+            }
+
+            if (!(player2.GetLives() == storedP2Lives))
+            {
+                player.ResetCurrentPos();
+                storedP1Lives = player.GetLives();
+                storedP2Lives = player2.GetLives();
             }
 
 
@@ -229,6 +253,7 @@ namespace MonoGameTutorialWork.Scripts
            player.ResetCurrentPos();
            player2.ResetCurrentPos();
            player.ResetLives();
+           player2.ResetLives();
            level.ResetLevels();
            renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
         }
