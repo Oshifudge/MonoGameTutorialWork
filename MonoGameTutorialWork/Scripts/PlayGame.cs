@@ -32,7 +32,7 @@ namespace MonoGameTutorialWork.Scripts
             level = new Levels();
             player = new Player(3, new Vector2(300, 1370), level, new Rectangle(0, 0, 32, 32));
             player2 = new Player2(3, new Vector2(300, 850), level, new Rectangle(0, 0, 32, 32));
-            enemy = new Enemy(new Vector2(350, 370), level, new Rectangle(52*3, 72*2, 52, 72));
+            enemy = new Enemy(new Vector2(1200, 1370), level, new Rectangle(0, 0, 24, 64));
             jumpIsPressed = false;
             currentPosition = new Vector2(0, 0);
             storedP1Lives = player.GetLives();
@@ -220,17 +220,18 @@ namespace MonoGameTutorialWork.Scripts
             player.LoadContent(CM, "Player1SpriteSheet2x");
             player2.LoadContent(CM, "Player2SpriteSheet2x");
             //obstacle.LoadContent(CM, "SingleObstacle2x");
-            enemy.LoadContent(CM, "orc2");
+            enemy.LoadContent(CM, "FlyingEnemySprites");
             
             
             //graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
             //graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
             graphicsDeviceManager.PreferredBackBufferHeight = 1080;
             graphicsDeviceManager.PreferredBackBufferWidth = 1920;
-            renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
+            //renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
+            renderTarget = new RenderTarget2D(graphicsDevice,  (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
             //Console.WriteLine("thing is " + graphicsDeviceManager.PreferredBackBufferWidth);
             //Console.WriteLine("thing 2 is " + graphicsDeviceManager.PreferredBackBufferHeight);
-            
+
             graphicsDeviceManager.ApplyChanges();
             background = CM.Load<Texture2D>("backgroundCastle");
             background2 = CM.Load<Texture2D>("castlegrey");
