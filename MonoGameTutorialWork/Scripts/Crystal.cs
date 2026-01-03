@@ -41,13 +41,13 @@ namespace MonoGameTutorialWork.Scripts
                 currentFrameTime = 0.0f;
             }
             if (animFrameIndex == 1)
-                spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.Black);
+                spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + spriteDimensions.Width, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
             else if (animFrameIndex == 2)
             {
-                Console.WriteLine("Drawing crystal frame 2");
-                //spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.Black);
+                spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + spriteDimensions.Width, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.Black);
 
             }
+            Console.WriteLine("???");
         }
 
         //public bool CollidesWith(Creature creature)
