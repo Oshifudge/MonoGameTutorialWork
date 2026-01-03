@@ -70,7 +70,6 @@ namespace MonoGameTutorialWork.Scripts
             if (currentLevel.IsObstacle((int)currentPos.X, (int)currentPos.Y) ||
                 currentLevel.IsObstacle((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
             {
-                Console.WriteLine("Hit Obstacle");
                 base.ResetCurrentPos();
                 ReduceLives();
             }

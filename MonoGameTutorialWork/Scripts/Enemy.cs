@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Configuration;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameTutorialWork.Scripts;
@@ -16,28 +17,37 @@ namespace MonoGameTutorialWork.Scripts
         {
             if (currentPos.Y > player.GetCurrentPos().Y)
             {
-                Up(2);
-                currentAnimState = animState.UP;
+                Up(1);
+                //currentAnimState = animState.RIGHT;
+                currentAnimState = animState.RIGHT;
             }
             if (currentPos.Y < player.GetCurrentPos().Y)
             {
-                Down(2);
-                currentAnimState = animState.DOWN;
+                Down(1);
+                //currentAnimState = animState.IDLE;
+                currentAnimState = animState.RIGHT;
 
             }
             if (currentPos.X > player.GetCurrentPos().X)
             {
                 Left();
-                currentAnimState = animState.LEFT;
+                //currentAnimState = animState.LEFT;
+                currentAnimState = animState.RIGHT;
 
             }
             if (currentPos.X < player.GetCurrentPos().X)
             {
                 Right();
+                //currentAnimState = animState.RIGHT;
                 currentAnimState = animState.RIGHT;
 
             }
 
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y * spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
         }
     }
 }

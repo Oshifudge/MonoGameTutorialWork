@@ -15,6 +15,10 @@ namespace MonoGameTutorialWork.Scripts
         private Texture2D platformTexture;
         private Texture2D obstacleTexture;
         private Texture2D obstacleTexture2;
+        private Texture2D crystalTexture;
+        //private Texture2D crystalTexture2;
+        private Texture2D heartTexture;
+        //private Texture2D heartTexture2;
         private Vector2 textureWH;
         private string[] levelContents;
         private string[] objectSpawns;
@@ -25,11 +29,14 @@ namespace MonoGameTutorialWork.Scripts
         private double frameTimeLimit;
         private Vector2 tileSize;
 
-        bool shouldDrawObstacles;
+        bool shouldDrawObjects;
 
         Obstacle obstacle;
+        Crystal crystal;
         List<Vector2> ObstacleSpawnPoints = new List<Vector2>();
         List<Obstacle> Obstacles = new List<Obstacle>();
+        List<Vector2> CrystalSpawnPoints = new List<Vector2>();
+        List<Crystal> Crystals = new List<Crystal>();
         double deltaTime;
 
         public Levels()
@@ -40,12 +47,17 @@ namespace MonoGameTutorialWork.Scripts
             
         }
 
-        public void LoadContent(ContentManager cM, string levelFileName, string platformFileName, string obstacleFileName, string obstacle2FileName)
+        public void LoadContent(ContentManager cM, string levelFileName, string platformFileName, string obstacleFileName, string obstacle2FileName,
+            string crystalFileName, string heartFileName)
         {
             wallTexture = cM.Load<Texture2D>(levelFileName);
             platformTexture = cM.Load<Texture2D>(platformFileName);
             obstacleTexture = cM.Load<Texture2D>(obstacleFileName);
             obstacleTexture2 = cM.Load<Texture2D>(obstacle2FileName);
+            crystalTexture = cM.Load<Texture2D>(crystalFileName);
+            //crystalTexture2 = cM.Load<Texture2D>(crystal2FileName);
+            heartTexture = cM.Load<Texture2D>(heartFileName);
+            //heartTexture2 = cM.Load<Texture2D>(heart2FileName);
             textureWH = new Vector2(wallTexture.Width, wallTexture.Height);
             animFrameIndex = 0;
             currentFrameTime = 0.0f;
@@ -118,11 +130,15 @@ namespace MonoGameTutorialWork.Scripts
                     //}
                 }
             }
-            if (shouldDrawObstacles)
+            if (shouldDrawObjects)
             {
                 foreach (Obstacle obs in Obstacles)
                 {
                     obs.Draw(deltaTime, spriteBatch, obstacleTexture, obstacleTexture2);
+                }
+                foreach (Crystal crys in Crystals)
+                {
+                    crys.Draw(deltaTime, spriteBatch, crystalTexture);
                 }
             }
         }
@@ -140,15 +156,27 @@ namespace MonoGameTutorialWork.Scripts
                         
                         for (int i = 0; i < ObstacleSpawnPoints.Count; i++)
                         {
-                            Console.WriteLine(ObstacleSpawnPoints[i]);
+                            //Console.WriteLine(ObstacleSpawnPoints[i]);
                             obstacle = new Obstacle(ObstacleSpawnPoints[i], new Rectangle(0, 0, 128, 128), obstacleTexture);
 
                         }
                         Obstacles.Add(obstacle);
                     }
+
+                    if (objectSpawns[row][col] == 'C')
+                    {                         
+                        CrystalSpawnPoints.Add(new Vector2(tileSize.X * col, tileSize.Y * row));
+
+                        for (int i = 0; i < CrystalSpawnPoints.Count; i++)
+                        {
+                            //Console.WriteLine(CrystalSpawnPoints[i]);
+                            crystal = new Crystal(CrystalSpawnPoints[i], new Rectangle(0, 0, 64, 64), crystalTexture);
+                        }
+                        Crystals.Add(crystal);
+                    }
                 }
             }
-            shouldDrawObstacles = true;
+            shouldDrawObjects = true;
         }
 
         public void GetDeltaTime(double playGameDeltaTime)

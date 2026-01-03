@@ -5,7 +5,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Content;
 using MonoGameTutorialWork.Scripts;
 using System;
-
+using SharpDX.MediaFoundation;
 
 namespace MonoGameTutorialWork.Scripts
 {
@@ -30,9 +30,9 @@ namespace MonoGameTutorialWork.Scripts
         {
             
             level = new Levels();
-            player = new Player(3, new Vector2(300, 1370), level, new Rectangle(0, 0, 32, 32));
-            player2 = new Player2(3, new Vector2(300, 850), level, new Rectangle(0, 0, 32, 32));
-            enemy = new Enemy(new Vector2(1200, 1370), level, new Rectangle(0, 0, 24, 64));
+            player = new Player(3, new Vector2(300, 1770), level, new Rectangle(0, 0, 32, 32));
+            player2 = new Player2(3, new Vector2(300, 1210), level, new Rectangle(0, 0, 32, 32));
+            enemy = new Enemy(new Vector2(2300, 1550), level, new Rectangle(0, 0, 64, 24));
             jumpIsPressed = false;
             currentPosition = new Vector2(0, 0);
             storedP1Lives = player.GetLives();
@@ -121,7 +121,8 @@ namespace MonoGameTutorialWork.Scripts
             player.SetFrame(Delta);
             player2.SetFrame(Delta);
             level.GetDeltaTime(Delta);
-
+            enemy.SetFrame(Delta);
+            enemy.Chase(player);
 
             if (Keyboard.GetState().IsKeyUp(Keys.A) && Keyboard.GetState().IsKeyUp(Keys.D))
             {
@@ -132,21 +133,20 @@ namespace MonoGameTutorialWork.Scripts
                 player2.SetAnimState(Creature.animState.IDLE);
             }
 
-            enemy.Chase(player);
-            enemy.SetFrame(Delta);
+            
 
             
             if (enemy.CollidesWith(player))
             {
                 player.ReduceLives();
-                System.Console.WriteLine("Player Lives = " + player.GetLives());
+                //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
             if(player.CollidesWith(enemy))
             {
                 player.ReduceLives();
-                System.Console.WriteLine("Player Lives = " + player.GetLives());
+                //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
@@ -216,7 +216,7 @@ namespace MonoGameTutorialWork.Scripts
 
         public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
         {
-            level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x");
+            level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x", "CrystalPickup", "HeartPickup");
             player.LoadContent(CM, "Player1SpriteSheet2x");
             player2.LoadContent(CM, "Player2SpriteSheet2x");
             //obstacle.LoadContent(CM, "SingleObstacle2x");

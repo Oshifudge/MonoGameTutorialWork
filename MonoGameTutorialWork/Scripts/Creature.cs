@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Windows.Forms;
 using System.Diagnostics.Eventing.Reader;
 using System;
+using System.Net.Sockets;
 
 namespace MonoGameTutorialWork.Scripts
 {
@@ -29,10 +30,10 @@ namespace MonoGameTutorialWork.Scripts
             LEFT, RIGHT, UP, DOWN, IDLE
         }
 
-        private int animFrameIndex;
-        private double currentFrameTime;
-        private double frameTimeLimit;
-        public animState currentAnimState;
+        protected int animFrameIndex;
+        protected double currentFrameTime;
+        protected double frameTimeLimit;
+        protected animState currentAnimState;
 
         public Creature(Vector2 position, Levels current, Rectangle spriteRectangle)
         {
@@ -155,7 +156,7 @@ namespace MonoGameTutorialWork.Scripts
             Sprite = cm.Load<Texture2D>(name);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             switch(currentAnimState)
             {
