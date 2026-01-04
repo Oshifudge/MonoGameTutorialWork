@@ -185,9 +185,14 @@ namespace MonoGameTutorialWork.Scripts
             //spriteBatch.Draw(Sprite, currentPos, rect, Color.White);
         }
 
-        protected Vector2 getSpriteFrameDimensions()
+        public Vector2 getSpriteFrameDimensions()
         {
             return new Vector2(Sprite.Width, Sprite.Height);
+        }
+
+        public Rectangle GetSpriteDimensions()
+        {
+            return spriteDimensions;
         }
 
         public bool CollidesWith(Creature creature)
@@ -200,6 +205,28 @@ namespace MonoGameTutorialWork.Scripts
             else
                 return false;
         }
+
+        //public bool CollidesWithCrystal(Crystal crystal)
+        //{
+
+        //        if (currentPos.X <= currentLevel.crystal.currentPos.X + spriteDimensions.Width - 1 &&
+        //            currentPos.X + spriteDimensions.Width - 1 >= currentLevel.crystal.currentPos.X &&
+        //            currentPos.Y <= currentLevel.crystal.currentPos.Y + spriteDimensions.Height - 1 &&
+        //            currentPos.Y + spriteDimensions.Height - 1 >= currentLevel.crystal.currentPos.Y &&
+        //            crystal.currentPos.X <= currentPos.X + crystal.GetSpriteDimensions().Width - 1 &&
+        //            crystal.currentPos.X + crystal.GetSpriteDimensions().Width - 1 >= currentPos.X &&
+        //            crystal.currentPos.Y <= currentPos.Y + crystal.GetSpriteDimensions().Height - 1 &&
+        //            crystal.currentPos.Y + crystal.GetSpriteDimensions().Height - 1 >= spriteDimensions.Height)
+        //        {
+        //            Console.WriteLine("Collision Detected");
+        //            return true;
+        //        }
+        //        else
+        //            return false;
+            
+        //    return false;
+
+        //}
 
         public void SetAnimState(animState state)
         {

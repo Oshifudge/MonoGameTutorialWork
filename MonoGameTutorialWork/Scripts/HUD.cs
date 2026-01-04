@@ -39,5 +39,10 @@ namespace MonoGameTutorialWork.Scripts
                     new Rectangle(0, 0, heartIcon.Width, heartIcon.Height), col);
             }
         }
+
+        public void DrawScore(SpriteBatch spriteBatch, int score, Color col)
+        {
+            spriteBatch.DrawString(mainFont, "Score: " + score.ToString(), new Vector2(1680, 10), col);
+        }
     }
 }

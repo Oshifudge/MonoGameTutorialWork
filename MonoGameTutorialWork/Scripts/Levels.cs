@@ -32,11 +32,11 @@ namespace MonoGameTutorialWork.Scripts
         bool shouldDrawObjects;
 
         Obstacle obstacle;
-        Crystal crystal;
+        public Crystal crystal;
         List<Vector2> ObstacleSpawnPoints = new List<Vector2>();
         List<Obstacle> Obstacles = new List<Obstacle>();
-        List<Vector2> CrystalSpawnPoints = new List<Vector2>();
-        List<Crystal> Crystals = new List<Crystal>();
+        public List<Vector2> CrystalSpawnPoints = new List<Vector2>();
+        public List<Crystal> Crystals = new List<Crystal>();
         double deltaTime;
 
         public Levels()
@@ -169,7 +169,7 @@ namespace MonoGameTutorialWork.Scripts
 
                         for (int i = 0; i < CrystalSpawnPoints.Count; i++)
                         {
-                            //Console.WriteLine(CrystalSpawnPoints[i]);
+                            Console.WriteLine(CrystalSpawnPoints[i]);
                             crystal = new Crystal(CrystalSpawnPoints[i], new Rectangle(0, 0, 64, 64), crystalTexture);
                         }
                         Crystals.Add(crystal);
@@ -188,7 +188,7 @@ namespace MonoGameTutorialWork.Scripts
         {
             if (levelContents[(int)y/wallTexture.Height][(int)x/wallTexture.Width] == 'W')
             {
-                return true;
+                return true; 
             }
             return false;
         }
@@ -197,6 +197,28 @@ namespace MonoGameTutorialWork.Scripts
         {
             if (objectSpawns[(int)y / obstacleTexture.Height][(int)x / obstacleTexture.Width] == 'O')
                 return true;
+            return false;
+        }
+
+        public bool IsCrystal(float x, float y)
+        {
+            
+            if (objectSpawns[(int)y / obstacleTexture.Height][(int)x / obstacleTexture.Width] == 'C')
+            {
+                
+                int i = CrystalSpawnPoints.IndexOf(new Vector2((int)x / obstacleTexture.Height, (int)y / obstacleTexture.Width));
+                //var value = CrystalSpawnPoints.Find(item => item.Equals (int)y/obstacleTexture.Height, (int)x/obstacleTexture.Width).value;
+                //int i = CrystalSpawnPoints.Find(item => item.Equals((int)y / obstacleTexture.Height, (int)x / obstacleTexture.Width));
+                //var crystalCollided = Crystals[i];
+                //Console.WriteLine(i);
+                //Crystals.RemoveAt(i);
+
+                //Console.WriteLine(crystalCollided);
+                //Console.WriteLine(value);
+                return true;
+
+            }
+                
             return false;
         }
 

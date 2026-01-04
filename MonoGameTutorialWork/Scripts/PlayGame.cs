@@ -150,8 +150,57 @@ namespace MonoGameTutorialWork.Scripts
                 player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
+            if (enemy.CollidesWith(player2))
+            {
+                player2.ReduceLives();
+                //System.Console.WriteLine("Player Lives = " + player.GetLives());
+                player2.ResetCurrentPos();
+                enemy.ResetCurrentPos();
+            }
+            if (player2.CollidesWith(enemy))
+            {
+                player2.ReduceLives();
+                player2.ResetCurrentPos();
+                enemy.ResetCurrentPos();
+            }
 
-            if (player.GetLives() == 0 || player2.GetLives() == 0)
+            //if (player2.CollidesWithCrystal(level.crystal))
+            //{
+            //    for(int num = 0; num < level.Crystals.Count; num++)
+            //    {
+            //        Crystal crys = level.Crystals[num];
+            //        player2.GetCurrentPos();
+            //        crys.GetCurrentPos();
+            //        if(player2.GetCurrentPos().X <= crys.GetCurrentPos().X + player2.GetSpriteDimensions().Width - 1 &&
+            //           player2.GetCurrentPos().X + player2.GetSpriteDimensions().Width - 1 >= crys.GetCurrentPos().X &&
+            //           player2.GetCurrentPos().Y <= crys.GetCurrentPos().Y + player2.GetSpriteDimensions().Height - 1 &&
+            //           player2.GetCurrentPos().Y + player2.GetSpriteDimensions().Height - 1 >= crys.GetCurrentPos().Y)
+            //        Console.WriteLine("Player 2 Collected Crystal");
+            //    }
+                
+            //}
+
+            for (int num = 0; num < level.Crystals.Count; num++)
+            {
+                Crystal crys = level.Crystals[num];
+                player2.GetCurrentPos();
+                crys.GetCurrentPos();
+                if (player2.GetCurrentPos().X <= crys.GetCurrentPos().X + player2.GetSpriteDimensions().Width + 30 &&
+                   player2.GetCurrentPos().X + player2.GetSpriteDimensions().Width + 30 >= crys.GetCurrentPos().X &&
+                   player2.GetCurrentPos().Y <= crys.GetCurrentPos().Y + player2.GetSpriteDimensions().Height + 30 &&
+                   player2.GetCurrentPos().Y + player2.GetSpriteDimensions().Height + 10 >= crys.GetCurrentPos().Y &&
+                   crys.currentPos.X <= player2.GetCurrentPos().X + crys.GetSpriteDimensions().Width + 30 &&
+                   crys.currentPos.X + crys.GetSpriteDimensions().Width +30 >= player2.GetCurrentPos().X &&
+                   crys.currentPos.Y <= player2.GetCurrentPos().Y + crys.GetSpriteDimensions().Height + 30 &&
+                   crys.currentPos.Y + crys.GetSpriteDimensions().Height + 30 >= player2.GetCurrentPos().Y)
+                {
+                    Console.WriteLine("Player 2 Collected Crystal");
+                    player2.AddScore(10);
+                    level.Crystals.RemoveAt(num);
+                }
+            }
+
+                if (player.GetLives() == 0 || player2.GetLives() == 0)
             {
                 //level.ResetLevels();
                 player.ResetLives();
@@ -210,7 +259,8 @@ namespace MonoGameTutorialWork.Scripts
             gameHUD.DrawHearts(spriteBatch, new Vector2(10, 10), player.GetLives(), Color.Red);
             //gameHUD.SetMessage("P2 Lives ");
             gameHUD.DrawString(spriteBatch, "P2 Lives ", new Vector2(1000, 0), Color.Blue);
-            gameHUD.DrawHearts(spriteBatch, new Vector2(1000, 10), player2.GetLives(), Color.Blue);
+            gameHUD.DrawHearts(spriteBatch, new Vector2(1000, 10), player2.GetLives(), Color.LightSkyBlue);
+            gameHUD.DrawScore(spriteBatch, player.GetScore() + player2.GetScore(), Color.DeepPink);
             spriteBatch.End();
         }
 

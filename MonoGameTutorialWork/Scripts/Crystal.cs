@@ -13,7 +13,7 @@ namespace MonoGameTutorialWork.Scripts
         public int count = 5;
         private Rectangle spriteDimensions;
         private Texture2D sprite;
-        private Vector2 currentPos;
+        public Vector2 currentPos;
 
         private int animFrameIndex;
         private double currentFrameTime;
@@ -41,13 +41,24 @@ namespace MonoGameTutorialWork.Scripts
                 currentFrameTime = 0.0f;
             }
             if (animFrameIndex == 1)
-                spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + spriteDimensions.Width, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
+                spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(0, 0, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
             else if (animFrameIndex == 2)
             {
-                spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + spriteDimensions.Width, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.Black);
+                //spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(64, 0, 64, 64), color: Color.White);
+                spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.Width , 0, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
+                //spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + (animFrameIndex * spriteDimensions.Width), spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
 
             }
-            Console.WriteLine("???");
+        }
+
+        public Vector2 GetCurrentPos()
+        {
+            return currentPos;
+        }
+
+        public Rectangle GetSpriteDimensions()
+        {
+            return spriteDimensions;
         }
 
         //public bool CollidesWith(Creature creature)

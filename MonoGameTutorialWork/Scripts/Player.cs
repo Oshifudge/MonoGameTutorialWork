@@ -33,6 +33,11 @@ namespace MonoGameTutorialWork.Scripts
             currentLives = initialLives;
         }
 
+        public int GetScore()
+        {
+            return score;
+        }
+
         //public override void Up()
         //{
 
@@ -62,6 +67,11 @@ namespace MonoGameTutorialWork.Scripts
                 base.ResetCurrentPos();
                 ReduceLives();
             }
+            //if (currentLevel.IsCrystal((int)currentPos.X, (int)currentPos.Y) ||
+            //    currentLevel.IsCrystal((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
+            //{
+            //    score += 10;
+            //}
 
         }
         public override void Right()
@@ -73,6 +83,11 @@ namespace MonoGameTutorialWork.Scripts
                 base.ResetCurrentPos();
                 ReduceLives();
             }
+            //if(currentLevel.IsCrystal((int)currentPos.X, (int)currentPos.Y) ||
+            //    currentLevel.IsCrystal((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
+            //{
+            //    score += 10;
+            //}
 
         }
     }
