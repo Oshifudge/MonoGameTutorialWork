@@ -31,7 +31,8 @@ namespace MonoGameTutorialWork.Scripts
             
             level = new Levels();
             player = new Player(3, new Vector2(300, 1770), level, new Rectangle(0, 0, 32, 32));
-            player2 = new Player2(3, new Vector2(300, 1210), level, new Rectangle(0, 0, 32, 32));
+            player2 = new Player2(3, new Vector2(300, 1210), level, new Rectangle(0, 0, 32, 32), player);
+            player.SetPlayer2(player2);
             enemy = new Enemy(new Vector2(2300, 1550), level, new Rectangle(0, 0, 64, 24));
             jumpIsPressed = false;
             currentPosition = new Vector2(0, 0);
@@ -141,6 +142,7 @@ namespace MonoGameTutorialWork.Scripts
                 player.ReduceLives();
                 //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player.ResetCurrentPos();
+                player2.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
             if(player.CollidesWith(enemy))
@@ -148,6 +150,7 @@ namespace MonoGameTutorialWork.Scripts
                 player.ReduceLives();
                 //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player.ResetCurrentPos();
+                player2.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
             if (enemy.CollidesWith(player2))
@@ -155,12 +158,14 @@ namespace MonoGameTutorialWork.Scripts
                 player2.ReduceLives();
                 //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player2.ResetCurrentPos();
+                player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
             if (player2.CollidesWith(enemy))
             {
                 player2.ReduceLives();
                 player2.ResetCurrentPos();
+                player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
 
@@ -184,6 +189,7 @@ namespace MonoGameTutorialWork.Scripts
             {
                 Crystal crys = level.Crystals[num];
                 player2.GetCurrentPos();
+                player.GetCurrentPos();
                 crys.GetCurrentPos();
                 if (player2.GetCurrentPos().X <= crys.GetCurrentPos().X + player2.GetSpriteDimensions().Width + 30 &&
                    player2.GetCurrentPos().X + player2.GetSpriteDimensions().Width + 30 >= crys.GetCurrentPos().X &&
@@ -198,6 +204,54 @@ namespace MonoGameTutorialWork.Scripts
                     player2.AddScore(10);
                     level.Crystals.RemoveAt(num);
                 }
+                if(player.GetCurrentPos().X <= crys.GetCurrentPos().X + player.GetSpriteDimensions().Width + 30 &&
+                   player.GetCurrentPos().X + player.GetSpriteDimensions().Width + 30 >= crys.GetCurrentPos().X &&
+                   player.GetCurrentPos().Y <= crys.GetCurrentPos().Y + player.GetSpriteDimensions().Height + 30 &&
+                   player.GetCurrentPos().Y + player.GetSpriteDimensions().Height + 10 >= crys.GetCurrentPos().Y &&
+                   crys.currentPos.X <= player.GetCurrentPos().X + crys.GetSpriteDimensions().Width + 30 &&
+                   crys.currentPos.X + crys.GetSpriteDimensions().Width + 30 >= player.GetCurrentPos().X &&
+                   crys.currentPos.Y <= player.GetCurrentPos().Y + crys.GetSpriteDimensions().Height + 30 &&
+                   crys.currentPos.Y + crys.GetSpriteDimensions().Height + 30 >= player.GetCurrentPos().Y)
+                {
+                    Console.WriteLine("Player 1 Collected Crystal");
+                    player.AddScore(10);
+                    level.Crystals.RemoveAt(num);
+                }
+            }
+
+            for (int livesIndex = 0; livesIndex < level.LivesUps.Count; livesIndex++)
+            {
+                LivesUp livesUp = level.LivesUps[livesIndex];
+                player.GetCurrentPos();
+                player2.GetCurrentPos();
+                livesUp.GetCurrentPos();
+                if(player.GetCurrentPos().X <= livesUp.GetCurrentPos().X + player.GetSpriteDimensions().Width + 30 &&
+                   player.GetCurrentPos().X + player.GetSpriteDimensions().Width + 30 >= livesUp.GetCurrentPos().X &&
+                   player.GetCurrentPos().Y <= livesUp.GetCurrentPos().Y + player.GetSpriteDimensions().Height + 30 &&
+                   player.GetCurrentPos().Y + player.GetSpriteDimensions().Height + 10 >= livesUp.GetCurrentPos().Y &&
+                   livesUp.currentPos.X <= player.GetCurrentPos().X + livesUp.GetSpriteDimensions().Width + 30 &&
+                   livesUp.currentPos.X + livesUp.GetSpriteDimensions().Width + 30 >= player.GetCurrentPos().X &&
+                   livesUp.currentPos.Y <= player.GetCurrentPos().Y + livesUp.GetSpriteDimensions().Height + 30 &&
+                   livesUp.currentPos.Y + livesUp.GetSpriteDimensions().Height + 30 >= player.GetCurrentPos().Y)
+                {
+                    Console.WriteLine("Player 1 Collected Life Up");
+                    player.AddLives(1);
+                    level.LivesUps.RemoveAt(livesIndex);
+                }
+
+                if(player2.GetCurrentPos().X <= livesUp.GetCurrentPos().X + player2.GetSpriteDimensions().Width + 30 &&
+                   player2.GetCurrentPos().X + player2.GetSpriteDimensions().Width + 30 >= livesUp.GetCurrentPos().X &&
+                   player2.GetCurrentPos().Y <= livesUp.GetCurrentPos().Y + player2.GetSpriteDimensions().Height + 30 &&
+                   player2.GetCurrentPos().Y + player2.GetSpriteDimensions().Height + 10 >= livesUp.GetCurrentPos().Y &&
+                   livesUp.currentPos.X <= player2.GetCurrentPos().X + livesUp.GetSpriteDimensions().Width + 30 &&
+                   livesUp.currentPos.X + livesUp.GetSpriteDimensions().Width + 30 >= player2.GetCurrentPos().X &&
+                   livesUp.currentPos.Y <= player2.GetCurrentPos().Y + livesUp.GetSpriteDimensions().Height + 30 &&
+                   livesUp.currentPos.Y + livesUp.GetSpriteDimensions().Height + 30 >= player2.GetCurrentPos().Y)
+                {
+                    Console.WriteLine("Player 2 Collected Life Up");
+                    player2.AddLives(1);
+                    level.LivesUps.RemoveAt(livesIndex);
+                }
             }
 
                 if (player.GetLives() == 0 || player2.GetLives() == 0)
@@ -209,21 +263,21 @@ namespace MonoGameTutorialWork.Scripts
                 ResetAll(graphicsDevice);
             }
 
-            //storedP1Lives = player.GetLives();
-            //storedP2Lives = player2.GetLives();
-            if (!(player.GetLives()  == storedP1Lives))
-            {
-                player2.ResetCurrentPos();
-                storedP1Lives = player.GetLives();
-                storedP2Lives = player2.GetLives();
-            }
+            ////storedP1Lives = player.GetLives();
+            ////storedP2Lives = player2.GetLives();
+            //if (!(player.GetLives()  <= storedP1Lives))
+            //{
+            //    player2.ResetCurrentPos();
+            //    storedP1Lives = player.GetLives();
+            //    //storedP2Lives = player2.GetLives();
+            //}
 
-            if (!(player2.GetLives() == storedP2Lives))
-            {
-                player.ResetCurrentPos();
-                storedP1Lives = player.GetLives();
-                storedP2Lives = player2.GetLives();
-            }
+            //if (!(player2.GetLives() <= storedP2Lives))
+            //{
+            //    player.ResetCurrentPos();
+            //    //storedP1Lives = player.GetLives();
+            //    storedP2Lives = player2.GetLives();
+            //}
 
 
             return e_gameStates.GAME;

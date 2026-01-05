@@ -33,10 +33,13 @@ namespace MonoGameTutorialWork.Scripts
 
         Obstacle obstacle;
         public Crystal crystal;
+        public LivesUp livesUp;
         List<Vector2> ObstacleSpawnPoints = new List<Vector2>();
         List<Obstacle> Obstacles = new List<Obstacle>();
         public List<Vector2> CrystalSpawnPoints = new List<Vector2>();
         public List<Crystal> Crystals = new List<Crystal>();
+        public List<Vector2> LivesSpawnPoints = new List<Vector2>();
+        public List<LivesUp> LivesUps = new List<LivesUp>();
         double deltaTime;
 
         public Levels()
@@ -140,6 +143,11 @@ namespace MonoGameTutorialWork.Scripts
                 {
                     crys.Draw(deltaTime, spriteBatch, crystalTexture);
                 }
+
+                foreach (LivesUp livesUp in LivesUps)
+                {
+                    livesUp.Draw(deltaTime, spriteBatch, heartTexture);
+                }
             }
         }
 
@@ -169,10 +177,21 @@ namespace MonoGameTutorialWork.Scripts
 
                         for (int i = 0; i < CrystalSpawnPoints.Count; i++)
                         {
-                            Console.WriteLine(CrystalSpawnPoints[i]);
+                            //Console.WriteLine(CrystalSpawnPoints[i]);
                             crystal = new Crystal(CrystalSpawnPoints[i], new Rectangle(0, 0, 64, 64), crystalTexture);
                         }
                         Crystals.Add(crystal);
+                    }
+
+                    if(objectSpawns[row][col] == 'L')
+                    {
+                        LivesSpawnPoints.Add(new Vector2(tileSize.X * col, tileSize.Y * row));
+                        for (int i = 0; i < LivesSpawnPoints.Count; i++)
+                        {
+                            //Console.WriteLine(LivesSpawnPoints[i]);
+                            livesUp = new LivesUp(LivesSpawnPoints[i], new Rectangle(0, 0, 64, 64), heartTexture);
+                        }
+                        LivesUps.Add(livesUp);
                     }
                 }
             }

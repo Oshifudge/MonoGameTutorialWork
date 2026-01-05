@@ -9,12 +9,14 @@ namespace MonoGameTutorialWork.Scripts
         private int currentLives;
         private int initialLives;
         private int score;
+        private Player player1;
 
-        public Player2(int lives, Vector2 position, Levels currentLevel, Rectangle rectangle) : base(position, currentLevel, rectangle)
+        public Player2(int lives, Vector2 position, Levels currentLevel, Rectangle rectangle, Player p1) : base(position, currentLevel, rectangle)
         {
             moveSpeed = 1.5f;
             currentLives = lives;
             initialLives = lives;
+            player1 = p1;
             score = 0;
         }
 
@@ -42,6 +44,11 @@ namespace MonoGameTutorialWork.Scripts
            score += scoreToAdd;
         }
 
+        public void AddLives(int livesToAdd)
+        {
+            currentLives += livesToAdd;
+        }
+
         //new void Up()
         //{
 
@@ -61,6 +68,7 @@ namespace MonoGameTutorialWork.Scripts
                 currentLevel.IsObstacle((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
             {
                 base.ResetCurrentPos();
+                player1.ResetCurrentPos();
                 ReduceLives();
             }
             //if (currentLevel.IsCrystal((int)currentPos.X, (int)currentPos.Y) ||
@@ -78,6 +86,7 @@ namespace MonoGameTutorialWork.Scripts
             {
                 
                 base.ResetCurrentPos();
+                player1.ResetCurrentPos();
                 ReduceLives();
             }
             //if (currentLevel.IsCrystal((int)currentPos.X, (int)currentPos.Y) ||
