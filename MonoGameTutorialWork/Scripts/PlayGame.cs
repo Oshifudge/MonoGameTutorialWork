@@ -16,10 +16,12 @@ namespace MonoGameTutorialWork.Scripts
         Player2 player2;
         Levels level;
         Obstacle obstacle;
+        EndFlag endFlag;
         bool jumpIsPressed;
         private RenderTarget2D renderTarget;
         int storedP1Lives;
         int storedP2Lives;
+        bool isGameEnded;
 
         Texture2D background;
         Texture2D background2;
@@ -38,6 +40,7 @@ namespace MonoGameTutorialWork.Scripts
             currentPosition = new Vector2(0, 0);
             storedP1Lives = player.GetLives();
             storedP2Lives = player2.GetLives();
+            endFlag = level.endFlag;
         }
 
         public e_gameStates Update(double Delta, Game1 game, GraphicsDevice graphicsDevice, GraphicsDeviceManager graphicsDeviceManager)
@@ -254,6 +257,19 @@ namespace MonoGameTutorialWork.Scripts
                 }
             }
 
+            if (player.GetCurrentPos().X + player.GetSpriteDimensions().Width >= endFlag.GetCurrentPos().X &&
+                player.GetCurrentPos().X <= endFlag.GetCurrentPos().X + endFlag.GetSpriteDimensions().Width &&
+                player.GetCurrentPos().Y + player.GetSpriteDimensions().Height >= endFlag.GetCurrentPos().Y &&
+                player.GetCurrentPos().Y <= endFlag.GetCurrentPos().Y + endFlag.GetSpriteDimensions().Height &&
+                player2.GetCurrentPos().X + player2.GetSpriteDimensions().Width >= endFlag.GetCurrentPos().X &&
+                player2.GetCurrentPos().X <= endFlag.GetCurrentPos().X + endFlag.GetSpriteDimensions().Width &&
+                player2.GetCurrentPos().Y + player2.GetSpriteDimensions().Height >= endFlag.GetCurrentPos().Y &&
+                player2.GetCurrentPos().Y <= endFlag.GetCurrentPos().Y + endFlag.GetSpriteDimensions().Height)
+            {
+                Console.WriteLine("Level Complete!");
+                isGameEnded = true;
+            }
+
                 if (player.GetLives() == 0 || player2.GetLives() == 0)
             {
                 //level.ResetLevels();
@@ -315,12 +331,16 @@ namespace MonoGameTutorialWork.Scripts
             gameHUD.DrawString(spriteBatch, "P2 Lives ", new Vector2(1000, 0), Color.Blue);
             gameHUD.DrawHearts(spriteBatch, new Vector2(1000, 10), player2.GetLives(), Color.LightSkyBlue);
             gameHUD.DrawScore(spriteBatch, player.GetScore() + player2.GetScore(), Color.DeepPink);
+            if(isGameEnded)
+            {
+                gameHUD.EndGame(spriteBatch, "YOU DID IT YOU WIN !!", player.GetScore() + player2.GetScore());
+            }
             spriteBatch.End();
         }
 
         public void LoadContent(ContentManager CM, GraphicsDeviceManager graphicsDeviceManager, GraphicsDevice graphicsDevice)
         {
-            level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x", "CrystalPickup", "HeartPickup");
+            level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x", "CrystalPickup", "HeartPickup", "FlagSprites");
             player.LoadContent(CM, "Player1SpriteSheet2x");
             player2.LoadContent(CM, "Player2SpriteSheet2x");
             //obstacle.LoadContent(CM, "SingleObstacle2x");
@@ -337,8 +357,8 @@ namespace MonoGameTutorialWork.Scripts
             //Console.WriteLine("thing 2 is " + graphicsDeviceManager.PreferredBackBufferHeight);
 
             graphicsDeviceManager.ApplyChanges();
-            background = CM.Load<Texture2D>("backgroundCastle");
-            background2 = CM.Load<Texture2D>("castlegrey");
+            background = CM.Load<Texture2D>("MountainBackground8x");
+            background2 = CM.Load<Texture2D>("ForestForeground9x");
             foreground = CM.Load<Texture2D>("tree31");
         }
 
@@ -376,7 +396,7 @@ namespace MonoGameTutorialWork.Scripts
             }
             for (int i = 0; i < 12; i++)
             {
-                spriteBatch.Draw(background2, new Vector2((1000 * i) + currentPosition.X * 0.3f, 0), Color.White);
+                spriteBatch.Draw(background2, new Vector2((1000 * i) + currentPosition.X * 0.3f, 800), Color.White);
                 //background2.Draw(spriteBatch, new Vector2((1000 * i) + currentPosition.X * 0.3f, 0), Color.White);
                 //new Vector2((background2.Width * i) + currentPosition.X * 0.3f, 0);
             }

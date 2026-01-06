@@ -16,9 +16,8 @@ namespace MonoGameTutorialWork.Scripts
         private Texture2D obstacleTexture;
         private Texture2D obstacleTexture2;
         private Texture2D crystalTexture;
-        //private Texture2D crystalTexture2;
         private Texture2D heartTexture;
-        //private Texture2D heartTexture2;
+        private Texture2D endFlagTexture;
         private Vector2 textureWH;
         private string[] levelContents;
         private string[] objectSpawns;
@@ -34,6 +33,7 @@ namespace MonoGameTutorialWork.Scripts
         Obstacle obstacle;
         public Crystal crystal;
         public LivesUp livesUp;
+        public EndFlag endFlag;
         List<Vector2> ObstacleSpawnPoints = new List<Vector2>();
         List<Obstacle> Obstacles = new List<Obstacle>();
         public List<Vector2> CrystalSpawnPoints = new List<Vector2>();
@@ -51,16 +51,15 @@ namespace MonoGameTutorialWork.Scripts
         }
 
         public void LoadContent(ContentManager cM, string levelFileName, string platformFileName, string obstacleFileName, string obstacle2FileName,
-            string crystalFileName, string heartFileName)
+            string crystalFileName, string heartFileName, string endFlagFileName)
         {
             wallTexture = cM.Load<Texture2D>(levelFileName);
             platformTexture = cM.Load<Texture2D>(platformFileName);
             obstacleTexture = cM.Load<Texture2D>(obstacleFileName);
             obstacleTexture2 = cM.Load<Texture2D>(obstacle2FileName);
             crystalTexture = cM.Load<Texture2D>(crystalFileName);
-            //crystalTexture2 = cM.Load<Texture2D>(crystal2FileName);
             heartTexture = cM.Load<Texture2D>(heartFileName);
-            //heartTexture2 = cM.Load<Texture2D>(heart2FileName);
+            endFlagTexture = cM.Load<Texture2D>(endFlagFileName);
             textureWH = new Vector2(wallTexture.Width, wallTexture.Height);
             animFrameIndex = 0;
             currentFrameTime = 0.0f;
@@ -148,6 +147,8 @@ namespace MonoGameTutorialWork.Scripts
                 {
                     livesUp.Draw(deltaTime, spriteBatch, heartTexture);
                 }
+
+                endFlag.Draw(deltaTime, spriteBatch, endFlagTexture);
             }
         }
 
@@ -192,6 +193,11 @@ namespace MonoGameTutorialWork.Scripts
                             livesUp = new LivesUp(LivesSpawnPoints[i], new Rectangle(0, 0, 64, 64), heartTexture);
                         }
                         LivesUps.Add(livesUp);
+                    }
+
+                    if(objectSpawns[row][col] == 'F')
+                    {
+                        endFlag = new EndFlag(new Vector2(tileSize.X * col, tileSize.Y * row), new Rectangle(0, 0, 128, 128), endFlagTexture);
                     }
                 }
             }

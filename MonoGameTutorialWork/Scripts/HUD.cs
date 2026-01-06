@@ -44,5 +44,12 @@ namespace MonoGameTutorialWork.Scripts
         {
             spriteBatch.DrawString(mainFont, "Score: " + score.ToString(), new Vector2(1680, 10), col);
         }
+
+        public void EndGame(SpriteBatch spriteBatch, string endMessage, int score)
+        {
+            Vector2 size = mainFont.MeasureString(endMessage);
+            Vector2 pos = new Vector2((1920 - size.X) / 2, (1080 - size.Y) / 2);
+            spriteBatch.DrawString(mainFont, endMessage + "You scored:" + score.ToString(), pos, Color.LawnGreen);
+        }
     }
 }
