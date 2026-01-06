@@ -44,10 +44,7 @@ namespace MonoGameTutorialWork.Scripts
                 spriteBatch.Draw(livesUpTexture, currentPos, new Rectangle(0, 0, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
             else if (animFrameIndex == 2)
             {
-            //spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(64, 0, 64, 64), color: Color.White);
                 spriteBatch.Draw(livesUpTexture, currentPos, new Rectangle(spriteDimensions.Width, 0, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
-            //spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + (animFrameIndex * spriteDimensions.Width), spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
-
             }
         }
 

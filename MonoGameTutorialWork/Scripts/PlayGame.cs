@@ -99,27 +99,14 @@ namespace MonoGameTutorialWork.Scripts
             {
                 player2.SetAnimState(Creature.animState.LEFT);
                 player2.Left();
-                //if (player.GetCanScroll())
-                //{
-                //    if (player.GetCurrentPos().X < (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth / 2 &&
-                //        player.GetCurrentPos().X > graphicsDeviceManager.PreferredBackBufferWidth / 2)
-                //    {
-                        currentPosition.X += player2.GetSpeed();
-                //    }
-                //}
+                currentPosition.X += player2.GetSpeed();
             }
             if (Keyboard.GetState().IsKeyDown(Keys.L))
             {
                 player2.SetAnimState(Creature.animState.RIGHT);
                 player2.Right();
-                //if (player.GetCanScroll())
-                //{
-                //    if (player.GetCurrentPos().X < (int)GetLevelWH().X - graphicsDeviceManager.PreferredBackBufferWidth / 2 &&
-                //        player.GetCurrentPos().X > graphicsDeviceManager.PreferredBackBufferWidth / 2)
-                //    {
-                        currentPosition.X -= player2.GetSpeed();
-                //    }
-                //}
+                currentPosition.X -= player2.GetSpeed();
+
             }
 
             player.SetFrame(Delta);
@@ -143,7 +130,6 @@ namespace MonoGameTutorialWork.Scripts
             if (enemy.CollidesWith(player))
             {
                 player.ReduceLives();
-                //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player.ResetCurrentPos();
                 player2.ResetCurrentPos();
                 enemy.ResetCurrentPos();
@@ -151,7 +137,6 @@ namespace MonoGameTutorialWork.Scripts
             if(player.CollidesWith(enemy))
             {
                 player.ReduceLives();
-                //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player.ResetCurrentPos();
                 player2.ResetCurrentPos();
                 enemy.ResetCurrentPos();
@@ -159,7 +144,6 @@ namespace MonoGameTutorialWork.Scripts
             if (enemy.CollidesWith(player2))
             {
                 player2.ReduceLives();
-                //System.Console.WriteLine("Player Lives = " + player.GetLives());
                 player2.ResetCurrentPos();
                 player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
@@ -171,22 +155,6 @@ namespace MonoGameTutorialWork.Scripts
                 player.ResetCurrentPos();
                 enemy.ResetCurrentPos();
             }
-
-            //if (player2.CollidesWithCrystal(level.crystal))
-            //{
-            //    for(int num = 0; num < level.Crystals.Count; num++)
-            //    {
-            //        Crystal crys = level.Crystals[num];
-            //        player2.GetCurrentPos();
-            //        crys.GetCurrentPos();
-            //        if(player2.GetCurrentPos().X <= crys.GetCurrentPos().X + player2.GetSpriteDimensions().Width - 1 &&
-            //           player2.GetCurrentPos().X + player2.GetSpriteDimensions().Width - 1 >= crys.GetCurrentPos().X &&
-            //           player2.GetCurrentPos().Y <= crys.GetCurrentPos().Y + player2.GetSpriteDimensions().Height - 1 &&
-            //           player2.GetCurrentPos().Y + player2.GetSpriteDimensions().Height - 1 >= crys.GetCurrentPos().Y)
-            //        Console.WriteLine("Player 2 Collected Crystal");
-            //    }
-                
-            //}
 
             for (int num = 0; num < level.Crystals.Count; num++)
             {
@@ -203,7 +171,6 @@ namespace MonoGameTutorialWork.Scripts
                    crys.currentPos.Y <= player2.GetCurrentPos().Y + crys.GetSpriteDimensions().Height + 30 &&
                    crys.currentPos.Y + crys.GetSpriteDimensions().Height + 30 >= player2.GetCurrentPos().Y)
                 {
-                    Console.WriteLine("Player 2 Collected Crystal");
                     player2.AddScore(10);
                     level.Crystals.RemoveAt(num);
                 }
@@ -216,7 +183,6 @@ namespace MonoGameTutorialWork.Scripts
                    crys.currentPos.Y <= player.GetCurrentPos().Y + crys.GetSpriteDimensions().Height + 30 &&
                    crys.currentPos.Y + crys.GetSpriteDimensions().Height + 30 >= player.GetCurrentPos().Y)
                 {
-                    Console.WriteLine("Player 1 Collected Crystal");
                     player.AddScore(10);
                     level.Crystals.RemoveAt(num);
                 }
@@ -237,7 +203,6 @@ namespace MonoGameTutorialWork.Scripts
                    livesUp.currentPos.Y <= player.GetCurrentPos().Y + livesUp.GetSpriteDimensions().Height + 30 &&
                    livesUp.currentPos.Y + livesUp.GetSpriteDimensions().Height + 30 >= player.GetCurrentPos().Y)
                 {
-                    Console.WriteLine("Player 1 Collected Life Up");
                     player.AddLives(1);
                     level.LivesUps.RemoveAt(livesIndex);
                 }
@@ -251,7 +216,6 @@ namespace MonoGameTutorialWork.Scripts
                    livesUp.currentPos.Y <= player2.GetCurrentPos().Y + livesUp.GetSpriteDimensions().Height + 30 &&
                    livesUp.currentPos.Y + livesUp.GetSpriteDimensions().Height + 30 >= player2.GetCurrentPos().Y)
                 {
-                    Console.WriteLine("Player 2 Collected Life Up");
                     player2.AddLives(1);
                     level.LivesUps.RemoveAt(livesIndex);
                 }
@@ -266,34 +230,16 @@ namespace MonoGameTutorialWork.Scripts
                 player2.GetCurrentPos().Y + player2.GetSpriteDimensions().Height >= endFlag.GetCurrentPos().Y &&
                 player2.GetCurrentPos().Y <= endFlag.GetCurrentPos().Y + endFlag.GetSpriteDimensions().Height)
             {
-                Console.WriteLine("Level Complete!");
                 isGameEnded = true;
             }
 
                 if (player.GetLives() == 0 || player2.GetLives() == 0)
             {
-                //level.ResetLevels();
                 player.ResetLives();
                 player2.ResetLives();
                 return e_gameStates.GAMEOVER;
                 ResetAll(graphicsDevice);
             }
-
-            ////storedP1Lives = player.GetLives();
-            ////storedP2Lives = player2.GetLives();
-            //if (!(player.GetLives()  <= storedP1Lives))
-            //{
-            //    player2.ResetCurrentPos();
-            //    storedP1Lives = player.GetLives();
-            //    //storedP2Lives = player2.GetLives();
-            //}
-
-            //if (!(player2.GetLives() <= storedP2Lives))
-            //{
-            //    player.ResetCurrentPos();
-            //    //storedP1Lives = player.GetLives();
-            //    storedP2Lives = player2.GetLives();
-            //}
 
 
             return e_gameStates.GAME;
@@ -321,13 +267,8 @@ namespace MonoGameTutorialWork.Scripts
 
             spriteBatch.Begin();
             spriteBatch.Draw(renderTarget, new Vector2(0,0), new Rectangle(rectx, recty, graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight), Color.White);
-            
-            //gameHUD.SetMessage("who else up playing they game");
-            //gameHUD.DrawString(spriteBatch, new Vector2((GetLevelWH().X / 2) - 512, 0), Color.Blue);
-            //gameHUD.SetMessage("P1 Lives ");
             gameHUD.DrawString(spriteBatch,"P1 Lives " , new Vector2(20, 0), Color.OrangeRed);
             gameHUD.DrawHearts(spriteBatch, new Vector2(10, 10), player.GetLives(), Color.Red);
-            //gameHUD.SetMessage("P2 Lives ");
             gameHUD.DrawString(spriteBatch, "P2 Lives ", new Vector2(1000, 0), Color.Blue);
             gameHUD.DrawHearts(spriteBatch, new Vector2(1000, 10), player2.GetLives(), Color.LightSkyBlue);
             gameHUD.DrawScore(spriteBatch, player.GetScore() + player2.GetScore(), Color.DeepPink);
@@ -343,18 +284,11 @@ namespace MonoGameTutorialWork.Scripts
             level.LoadContent(CM, "GreyWall", "GreyPlatform", "SingleObstacle2x", "SingleObstacleFrame22x", "CrystalPickup", "HeartPickup", "FlagSprites");
             player.LoadContent(CM, "Player1SpriteSheet2x");
             player2.LoadContent(CM, "Player2SpriteSheet2x");
-            //obstacle.LoadContent(CM, "SingleObstacle2x");
             enemy.LoadContent(CM, "FlyingEnemySprites");
-            
-            
-            //graphicsDeviceManager.PreferredBackBufferWidth = (int)level.GetLevelSize().X;
-            //graphicsDeviceManager.PreferredBackBufferHeight = (int)level.GetLevelSize().Y;
+
             graphicsDeviceManager.PreferredBackBufferHeight = 1080;
             graphicsDeviceManager.PreferredBackBufferWidth = 1920;
-            //renderTarget = new RenderTarget2D(graphicsDevice, (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
             renderTarget = new RenderTarget2D(graphicsDevice,  (int)level.GetLevelSize().X, (int)level.GetLevelSize().Y);
-            //Console.WriteLine("thing is " + graphicsDeviceManager.PreferredBackBufferWidth);
-            //Console.WriteLine("thing 2 is " + graphicsDeviceManager.PreferredBackBufferHeight);
 
             graphicsDeviceManager.ApplyChanges();
             background = CM.Load<Texture2D>("MountainBackground8x");
@@ -391,14 +325,10 @@ namespace MonoGameTutorialWork.Scripts
             for(int i = 0; i < 2; i++)
             {
                 spriteBatch.Draw(background, new Vector2((background.Width * i) + currentPosition.X * 0.1f, 0), Color.White);
-                //background.Draw(spriteBatch, new Vector2((background.Width * i) + currentPosition.X * 0.1f, 0), Color.White);
-                //new Vector2((background2.Width * i) + currentPosition.X * 0.1f, 0);
             }
             for (int i = 0; i < 12; i++)
             {
                 spriteBatch.Draw(background2, new Vector2((1000 * i) + currentPosition.X * 0.3f, 800), Color.White);
-                //background2.Draw(spriteBatch, new Vector2((1000 * i) + currentPosition.X * 0.3f, 0), Color.White);
-                //new Vector2((background2.Width * i) + currentPosition.X * 0.3f, 0);
             }
 
             level.Draw(spriteBatch);

@@ -57,36 +57,28 @@ namespace MonoGameTutorialWork.Scripts
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GraphicsDeviceManager graphicsDeviceManager)
         {
-            //spriteBatch.Begin();
             switch (e_State)
             {
                case e_gameStates.MENU:
                     spriteBatch.Begin();
                     menu.Draw(graphicsDevice);
-                    hudOverlay.DrawString(spriteBatch,"Little red thing and little blue thing" ,new Vector2((play.GetLevelWH().X / 2) - 800, 0), Color.Black);
-                    //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
-                    //    graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
+                    hudOverlay.DrawString(spriteBatch,"Little red thing and little blue thing game" ,new Vector2((play.GetLevelWH().X / 2) - 1400, 0), Color.Black);
+                    hudOverlay.DrawString(spriteBatch, "Click to play !", new Vector2((play.GetLevelWH().X / 2) - 1400, 500), Color.Black);
                     spriteBatch.End();
                     break;
                 case e_gameStates.GAME:
                     
                     play.Draw(graphicsDevice, spriteBatch, hudOverlay, graphicsDeviceManager);
-                    //hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
-                    //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
-                    //     graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black); 
                     
                     break;
                 case e_gameStates.GAMEOVER:
-                     
+                    spriteBatch.Begin();
                     gameOver.Draw(graphicsDevice);
-                    //hudOverlay.DrawString(spriteBatch, new Vector2((play.GetLevelWH().X / 2) - 256, 0), Color.Black);
-                    //hudOverlay.DrawString(spriteBatch, new Vector2((graphicsDeviceManager.PreferredBackBufferWidth / 2) - 256,
-                    //    graphicsDeviceManager.PreferredBackBufferHeight / 2), Color.Black);
-                    
+                    hudOverlay.DrawString(spriteBatch, "Game Over :(", new Vector2((play.GetLevelWH().X / 2) - 1400, 0), Color.Black);
+                    spriteBatch.End();
                     break;
                 default: break;
             }
-            //spriteBatch.End();
         }
 
         public void SwitchState(e_gameStates State)
@@ -98,9 +90,6 @@ namespace MonoGameTutorialWork.Scripts
         {
             play.LoadContent(contentManager, graphicsDeviceManager, graphicsDevice);
             hudOverlay.LoadContent(contentManager);
-            //MainFont = contentManager.Load<SpriteFont>("MainFont");
-
-            //menu = new Menu(play.GetScreenWH());
             menu = new Menu(new Vector2(graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight));
         }
 

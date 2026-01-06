@@ -115,21 +115,6 @@ namespace MonoGameTutorialWork.Scripts
                     {
                         spriteBatch.Draw(platformTexture, new Vector2(platformTexture.Width * col, platformTexture.Height * row), Color.White);
                     }
-                    //if (levelContents[row][col] == 'O')
-                    //{
-                    //    if (animFrameIndex == 0)
-                    //    {
-                    //        spriteBatch.Draw(obstacleTexture, new Vector2(obstacleTexture.Width * col, obstacleTexture.Height * row), Color.White);
-                    //        animFrameIndex++;
-                    //        currentFrameTime = 0.0f;
-                    //    }
-                    //    else if (animFrameIndex == 1)
-                    //    {
-                    //        spriteBatch.Draw(obstacleTexture2, new Vector2(obstacleTexture.Width * col, obstacleTexture.Height * row), Color.White);
-                    //        animFrameIndex = 0;
-                    //        currentFrameTime = 0.0f;
-                    //    }
-                    //}
                 }
             }
             if (shouldDrawObjects)
@@ -165,7 +150,6 @@ namespace MonoGameTutorialWork.Scripts
                         
                         for (int i = 0; i < ObstacleSpawnPoints.Count; i++)
                         {
-                            //Console.WriteLine(ObstacleSpawnPoints[i]);
                             obstacle = new Obstacle(ObstacleSpawnPoints[i], new Rectangle(0, 0, 128, 128), obstacleTexture);
 
                         }
@@ -178,7 +162,6 @@ namespace MonoGameTutorialWork.Scripts
 
                         for (int i = 0; i < CrystalSpawnPoints.Count; i++)
                         {
-                            //Console.WriteLine(CrystalSpawnPoints[i]);
                             crystal = new Crystal(CrystalSpawnPoints[i], new Rectangle(0, 0, 64, 64), crystalTexture);
                         }
                         Crystals.Add(crystal);
@@ -189,7 +172,6 @@ namespace MonoGameTutorialWork.Scripts
                         LivesSpawnPoints.Add(new Vector2(tileSize.X * col, tileSize.Y * row));
                         for (int i = 0; i < LivesSpawnPoints.Count; i++)
                         {
-                            //Console.WriteLine(LivesSpawnPoints[i]);
                             livesUp = new LivesUp(LivesSpawnPoints[i], new Rectangle(0, 0, 64, 64), heartTexture);
                         }
                         LivesUps.Add(livesUp);
@@ -232,16 +214,7 @@ namespace MonoGameTutorialWork.Scripts
             {
                 
                 int i = CrystalSpawnPoints.IndexOf(new Vector2((int)x / obstacleTexture.Height, (int)y / obstacleTexture.Width));
-                //var value = CrystalSpawnPoints.Find(item => item.Equals (int)y/obstacleTexture.Height, (int)x/obstacleTexture.Width).value;
-                //int i = CrystalSpawnPoints.Find(item => item.Equals((int)y / obstacleTexture.Height, (int)x / obstacleTexture.Width));
-                //var crystalCollided = Crystals[i];
-                //Console.WriteLine(i);
-                //Crystals.RemoveAt(i);
-
-                //Console.WriteLine(crystalCollided);
-                //Console.WriteLine(value);
                 return true;
-
             }
                 
             return false;

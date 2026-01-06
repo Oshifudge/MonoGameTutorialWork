@@ -63,8 +63,6 @@ namespace MonoGameTutorialWork.Scripts
                 if (isJumping)
                     isJumping = false;
             }
-
-            //levelScript.IsWall(currentPos.X, currentPos.Y);
         }
 
         public virtual void Down(int inputSpeed)
@@ -161,7 +159,6 @@ namespace MonoGameTutorialWork.Scripts
             switch(currentAnimState)
             {
                 case animState.IDLE:
-                    //new Rectangle(spriteDimensions.X + animFrameIndex * spriteDimensions.Width, spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height);
                     spriteBatch.Draw(Sprite, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color:Color.White);
                         break;
                 case animState.RIGHT:
@@ -182,7 +179,6 @@ namespace MonoGameTutorialWork.Scripts
 
             }
             
-            //spriteBatch.Draw(Sprite, currentPos, rect, Color.White);
         }
 
         public Vector2 getSpriteFrameDimensions()
@@ -205,28 +201,6 @@ namespace MonoGameTutorialWork.Scripts
             else
                 return false;
         }
-
-        //public bool CollidesWithCrystal(Crystal crystal)
-        //{
-
-        //        if (currentPos.X <= currentLevel.crystal.currentPos.X + spriteDimensions.Width - 1 &&
-        //            currentPos.X + spriteDimensions.Width - 1 >= currentLevel.crystal.currentPos.X &&
-        //            currentPos.Y <= currentLevel.crystal.currentPos.Y + spriteDimensions.Height - 1 &&
-        //            currentPos.Y + spriteDimensions.Height - 1 >= currentLevel.crystal.currentPos.Y &&
-        //            crystal.currentPos.X <= currentPos.X + crystal.GetSpriteDimensions().Width - 1 &&
-        //            crystal.currentPos.X + crystal.GetSpriteDimensions().Width - 1 >= currentPos.X &&
-        //            crystal.currentPos.Y <= currentPos.Y + crystal.GetSpriteDimensions().Height - 1 &&
-        //            crystal.currentPos.Y + crystal.GetSpriteDimensions().Height - 1 >= spriteDimensions.Height)
-        //        {
-        //            Console.WriteLine("Collision Detected");
-        //            return true;
-        //        }
-        //        else
-        //            return false;
-            
-        //    return false;
-
-        //}
 
         public void SetAnimState(animState state)
         {

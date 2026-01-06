@@ -12,7 +12,7 @@ namespace MonoGameTutorialWork.Scripts
         public void Draw(GraphicsDevice graphicsDevice)
         {
             //make red
-            graphicsDevice.Clear(Color.Red);
+            graphicsDevice.Clear(Color.PaleVioletRed);
         }
 
         public GameOver()

@@ -45,22 +45,6 @@ namespace MonoGameTutorialWork.Scripts
                 spriteBatch.Draw(obstacleTexture2, currentPos, new Rectangle(spriteDimensions.X, spriteDimensions.Y, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
 
         }
-
-        //public bool CollidesWith(Creature creature)
-        //{
-        //    if (currentPos.X <= creature.currentPos.X + spriteDimensions.Width - 1 &&
-        //        currentPos.X + spriteDimensions.Width - 1 >= creature.currentPos.X &&
-        //        currentPos.Y <= creature.currentPos.Y + spriteDimensions.Height - 1 &&
-        //        currentPos.Y + spriteDimensions.Height - 1 >= creature.currentPos.Y)
-        //        return true;
-        //    else
-        //        return false;
-        //}
-
-        //public void LoadContent(ContentManager cM, string spriteSheetName)
-        //{
-        //    sprite = cM.Load<Texture2D>(spriteSheetName);
-        //}
     }
 
 }

@@ -49,18 +49,6 @@ namespace MonoGameTutorialWork.Scripts
             currentLives += livesToAdd;
         }
 
-        //new void Up()
-        //{
-
-        //    //levelScript.IsWall(currentPos.X, currentPos.Y);
-
-        //}
-        //new void Down()
-        //{
-
-        //    //levelScript.IsWall(currentPos.X, currentPos.Y);
-
-        //}
         public override void Left()
         {
             base.Left();
@@ -71,12 +59,6 @@ namespace MonoGameTutorialWork.Scripts
                 player1.ResetCurrentPos();
                 ReduceLives();
             }
-            //if (currentLevel.IsCrystal((int)currentPos.X, (int)currentPos.Y) ||
-            //    currentLevel.IsCrystal((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
-            //{
-            //    score += 10;
-            //}
-
         }
         public override void Right()
         {
@@ -89,13 +71,7 @@ namespace MonoGameTutorialWork.Scripts
                 player1.ResetCurrentPos();
                 ReduceLives();
             }
-            //if (currentLevel.IsCrystal((int)currentPos.X, (int)currentPos.Y) ||
-            //    currentLevel.IsCrystal((int)currentPos.X + spriteDimensions.Width - 1, (int)currentPos.Y))
-            //{
-            //    score += 10;
-            //}
+
         }
-
-
     }
 }

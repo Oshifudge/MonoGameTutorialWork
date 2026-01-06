@@ -44,10 +44,7 @@ namespace MonoGameTutorialWork.Scripts
                 spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(0, 0, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
             else if (animFrameIndex == 2)
             {
-                //spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(64, 0, 64, 64), color: Color.White);
                 spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.Width , 0, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
-                //spriteBatch.Draw(crystalTexture, currentPos, new Rectangle(spriteDimensions.X + (animFrameIndex * spriteDimensions.Width), spriteDimensions.Y + spriteDimensions.Height, spriteDimensions.Width, spriteDimensions.Height), color: Color.White);
-
             }
         }
 
@@ -60,22 +57,6 @@ namespace MonoGameTutorialWork.Scripts
         {
             return spriteDimensions;
         }
-
-        //public bool CollidesWith(Creature creature)
-        //{
-        //    if (currentPos.X <= creature.currentPos.X + spriteDimensions.Width - 1 &&
-        //        currentPos.X + spriteDimensions.Width - 1 >= creature.currentPos.X &&
-        //        currentPos.Y <= creature.currentPos.Y + spriteDimensions.Height - 1 &&
-        //        currentPos.Y + spriteDimensions.Height - 1 >= creature.currentPos.Y)
-        //        return true;
-        //    else
-        //        return false;
-        //}
-
-        //public void LoadContent(ContentManager cM, string spriteSheetName)
-        //{
-        //    sprite = cM.Load<Texture2D>(spriteSheetName);
-        //}
     }
 
 }
