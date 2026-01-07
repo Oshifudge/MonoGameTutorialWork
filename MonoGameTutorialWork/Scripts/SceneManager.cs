@@ -95,7 +95,7 @@ namespace MonoGameTutorialWork.Scripts
 
         void SetMessage(string inputText)
         {
-            
+             
         }
 
     }
